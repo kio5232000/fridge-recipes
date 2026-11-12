@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#fff3db">
-<title>冰箱有什麼？｜清新廚房 V0.4</title>
+<title>冰箱有什麼？｜清新廚房 V0.5</title>
 <meta name="description" content="免登入，點選家裡現有食材，立即找到適合的家常料理。">
 <style>
 /* V0.3 - 清新廚房 / editorial kitchen */
@@ -55,11 +55,22 @@ h1,h2,h3,p{margin:0}main{max-width:960px;padding:24px 24px 110px;margin:auto}
 @media(min-width:851px){.quickbar{display:none}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.recipe,.food{transition:none}}
 
+
+/* V0.5 即時推薦分層，偏好只在符合料理較多時出現 */
+.v05-preferences,.v05-types{display:flex;flex-wrap:wrap;gap:7px;margin:13px 0 14px}
+.v05-chip,.v05-type{border:1px solid #e5dccf;background:#fffdf8;border-radius:100px;color:#657264;padding:8px 12px;font-size:12px;font-weight:700;min-height:39px}
+.v05-chip.on,.v05-type.on{background:#334b3b;border-color:#334b3b;color:#fff}
+.v05-featured{grid-template-columns:repeat(3,minmax(0,1fr))}
+.v05-feature-item{min-width:0;border:1px solid #eadfd0;border-radius:19px;overflow:hidden;background:#fffefa}
+.v05-feature-item .recipe{border:0;border-radius:0;box-shadow:none;height:100%;min-height:110px}
+.v05-feature-item .badge{white-space:normal;text-align:center}
+.v05-reason{font-size:11px;color:#7a806f;padding:0 14px 10px}
+@media(max-width:800px){.v05-featured{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <main>
-<header class="hero"><div class="hero-copy"><div class="eyebrow"><span class="eyebrow-dot"></span> THE LITTLE KITCHEN</div><div class="reset-row"><h1>冰箱有什麼<span class="punct">？</span></h1><span class="beta">V0.4</span></div><p>點選食材，馬上找到今天能煮的菜。</p></div><div class="hero-art" aria-hidden="true"><span class="hero-leaf">✳</span><div class="hero-plate"><span>🍅</span><span>🥬</span><span>🥚</span></div></div></header>
+<header class="hero"><div class="hero-copy"><div class="eyebrow"><span class="eyebrow-dot"></span> THE LITTLE KITCHEN</div><div class="reset-row"><h1>冰箱有什麼<span class="punct">？</span></h1><span class="beta">V0.5</span></div><p>點選食材，馬上找到今天能煮的菜。</p></div><div class="hero-art" aria-hidden="true"><span class="hero-leaf">✳</span><div class="hero-plate"><span>🍅</span><span>🥬</span><span>🥚</span></div></div></header>
 <section class="box" aria-label="選擇食材">
 <p class="step">看看冰箱裡有什麼 <span style="font-size:11px;font-weight:500;color:#8f9488">· 可複選</span></p>
 <div class="cats" id="cats" role="group" aria-label="食材分類"></div>
@@ -170,7 +181,7 @@ const GROUP_ICONS={'常用':'✨','蔬菜':'🥬','肉類':'🥩','蛋豆':'🥚
 const FOOD_ICONS={'雞蛋':'🥚','番茄':'🍅','豆腐':'◻️','洋蔥':'🧅','高麗菜':'🥬','豬肉片':'🥩','雞肉':'🍗','青蔥':'🌱','蒜頭':'🧄','白飯':'🍚','馬鈴薯':'🥔','紅蘿蔔':'🥕','青江菜':'🥬','空心菜':'🥬','青椒':'🫑','絲瓜':'🥒','香菇':'🍄','薑':'🫚','豬絞肉':'🥩','豆干':'🫘','蝦仁':'🦐','蛤蜊':'🐚','海帶芽':'🌿','麵條':'🍜','味噌':'🥣','咖哩塊':'🍛','豆瓣醬':'🌶️','九層塔':'🌱','麻油':'🫙'};
 let active='常用',expanded=false;
 function save(){try{localStorage.setItem(keys.picked,JSON.stringify([...picked]));localStorage.setItem(keys.pantry,JSON.stringify([...pantry]));localStorage.setItem(keys.confirmed,String(pantryConfirmed))}catch{}}
-function toggle(food){if(picked.has(food))picked.delete(food);else picked.add(food);save();render()}
+function toggle(food){if(picked.has(food))picked.delete(food);else picked.add(food);expanded=false;categoryFilterV05='all';save();render()}
 function formatPantry(x){return Array.isArray(x)?x.join('／')+'（任一）':x}
 function hasPantry(x){return Array.isArray(x)?x.some(y=>pantry.has(y)):pantry.has(x)}
 function classifyRecipe(r,i){
@@ -187,6 +198,57 @@ function makeCard(o){
  else{label='缺 1 主食材';cls='soon';detail='還缺：'+o.missing.join('、')+(o.cond.length?' · 調味另需確認':'')}
  return `<button type="button" class="recipe" data-recipe="${o.i}" aria-label="${escapeHTML(r[0])}，${escapeHTML(label)}"><span class="thumb" aria-hidden="true">${r[1]}</span><span class="rtext"><span class="name">${escapeHTML(r[0])}</span><div class="meta">約 ${r[2]} 分鐘 · 用到 ${o.matched} 種已選食材</div><div class="meta">${escapeHTML(detail)}</div></span><span class="badge ${cls}">${escapeHTML(label)}</span><span class="arrow" aria-hidden="true">›</span></button>`
 }
+
+/* V0.5 精選推薦：只依已存食譜計算，不呼叫 AI，資料卡片仍沿用原介面 */
+const CATEGORY_GROUPS_V05={"main":["洋蔥炒豬肉","高麗菜炒豬肉","蒜香雞肉","洋蔥炒雞肉","雞肉馬鈴薯燉煮","馬鈴薯燉豬肉","青椒炒豬肉","豬肉炒蛋","蒜香蝦仁","青椒炒雞肉","咖哩雞肉","家常麻婆豆腐","洋蔥炒蝦仁","肉末燴豆腐","洋蔥肉末炒蛋"],"soup":["番茄蛋花湯","番茄豆腐湯","海帶芽豆腐湯","蛤蜊清湯","香菇雞湯","味噌豆腐湯","高麗菜蛋花湯","青江菜豆腐湯","薑絲雞湯"],"staple":["雞肉蛋炒飯","蛋炒飯","高麗菜蛋炒飯","蝦仁蛋炒飯","蒜香炒麵","番茄蛋炒飯","高麗菜雞肉炒飯","番茄雞肉燴飯"],"side":["番茄炒蛋","蔥花煎蛋","洋蔥炒蛋","家常蒸蛋","豆腐蒸蛋","清炒高麗菜","蒜炒青江菜","蒜炒空心菜","番茄燴豆腐","香煎豆腐","蝦仁炒蛋","蛤蜊絲瓜","馬鈴薯煎餅","紅蘿蔔煎蛋","香菇炒蛋","青椒炒豆干","水煮蛋","荷包蛋","蒜香炒高麗菜","香菇燴豆腐","蒜炒香菇","絲瓜炒蛋","青椒炒蛋","九層塔煎蛋","蒜香炒豆干"]};
+const CATEGORY_LABELS_V05={main:'主菜',side:'家常菜',soup:'湯品',staple:'主食'};
+const HARD_V05=new Set(["雞肉蛋炒飯","蝦仁蛋炒飯","家常麻婆豆腐","洋蔥肉末炒蛋","高麗菜雞肉炒飯","番茄雞肉燴飯"]);
+const MEDIUM_V05=new Set(["家常蒸蛋","豆腐蒸蛋","洋蔥炒豬肉","高麗菜炒豬肉","蒜香雞肉","洋蔥炒雞肉","雞肉馬鈴薯燉煮","馬鈴薯燉豬肉","青椒炒豬肉","豬肉炒蛋","蛋炒飯","高麗菜蛋炒飯","香煎豆腐","蝦仁炒蛋","蒜香蝦仁","蛤蜊清湯","蛤蜊絲瓜","馬鈴薯煎餅","香菇雞湯","青椒炒雞肉","咖哩雞肉","蒜香炒麵","荷包蛋","絲瓜炒蛋","番茄蛋炒飯","洋蔥炒蝦仁","肉末燴豆腐","薑絲雞湯"]);
+const CATEGORY_BY_NAME_V05=Object.fromEntries(Object.entries(CATEGORY_GROUPS_V05).flatMap(([cat,names])=>names.map(name=>[name,cat])));
+let recommendationModeV05='smart',categoryFilterV05='all';
+function difficultyV05(name){return HARD_V05.has(name)?3:MEDIUM_V05.has(name)?2:1}
+function scoreRecipeV05(o){
+ const r=RECIPES[o.i],time=r[2],difficulty=difficultyV05(r[0]);
+ const pantryPts=o.cond.length===0?40:(pantryConfirmed?Math.max(0,40-16*o.cond.length):Math.max(0,30-9*o.cond.length));
+ const easePts=difficulty===1?25:difficulty===2?18:9;
+ const timePts=time<=15?20:time<=20?17:time<=30?12:7;
+ const usePts=Math.min(15,5*o.matched);
+ let score=pantryPts+easePts+timePts+usePts;
+ if(recommendationModeV05==='quick')score+=Math.max(0,26-time)*0.45;
+ if(recommendationModeV05==='easy'&&difficulty===1)score+=9;
+ if(recommendationModeV05==='use')score+=o.matched*7;
+ return score;
+}
+function rankRecipesV05(candidates){
+ return candidates.filter(o=>{
+   const r=RECIPES[o.i],d=difficultyV05(r[0]);
+   return recommendationModeV05==='quick'?r[2]<=20:recommendationModeV05==='easy'?d<=2:true;
+ }).map(o=>({...o,scoreV05:scoreRecipeV05(o)}))
+ .sort((a,b)=>b.pantryRank-a.pantryRank||b.scoreV05-a.scoreV05||RECIPES[a.i][2]-RECIPES[b.i][2]||a.i-b.i);
+}
+function featuredRecipesV05(ranked){
+ // 有至少三道必要調味已齊的選擇時，不讓未確認調味的菜擠進前三道。
+ const verified=ranked.filter(o=>o.cond.length===0);
+ const pool=(verified.length>=3?verified:ranked).slice();
+ const featured=[];
+ while(featured.length<3&&pool.length){
+  let bestIndex=0,bestScore=-Infinity;
+  pool.forEach((o,index)=>{
+   const category=CATEGORY_BY_NAME_V05[RECIPES[o.i][0]];
+   const repeatedCategory=featured.some(x=>CATEGORY_BY_NAME_V05[RECIPES[x.i][0]]===category);
+   const overlap=featured.reduce((sum,x)=>Math.max(sum,RECIPES[o.i][3].filter(f=>RECIPES[x.i][3].includes(f)).length),0);
+   const adjusted=o.scoreV05-(repeatedCategory?18:0)-Math.min(overlap,2)*4;
+   if(adjusted>bestScore){bestScore=adjusted;bestIndex=index}
+  });
+  featured.push(pool.splice(bestIndex,1)[0]);
+ }
+ return featured;
+}
+function labelRecipeV05(o){
+ const r=RECIPES[o.i];
+ return (CATEGORY_LABELS_V05[CATEGORY_BY_NAME_V05[r[0]]]||'料理')+' · '+(difficultyV05(r[0])===1?'容易上手':difficultyV05(r[0])===2?'家常難度':'稍有挑戰');
+}
+
 function render(){
  $('cats').innerHTML=GROUPS.map(g=>`<button type="button" class="cat ${g.name===active?'on':''}" data-group="${g.name}" aria-pressed="${g.name===active}"><span class="cat-emoji" aria-hidden="true">${GROUP_ICONS[g.name]||'🍴'}</span>${g.name}</button>`).join('');
  $('foods').innerHTML=GROUPS.find(g=>g.name===active).foods.map(f=>`<button type="button" class="food ${picked.has(f)?'on':''}" data-food="${f}" aria-pressed="${picked.has(f)}"><span class="food-emoji" aria-hidden="true">${FOOD_ICONS[f]||'🍽️'}</span><span class="food-label">${f}</span></button>`).join('');
@@ -196,7 +258,7 @@ function render(){
  $('pantryDone').textContent=pantryConfirmed?'更新確認':'確認調味料';
  const available=[],oneAway=[];
  if(picked.size){RECIPES.forEach((r,i)=>{const o=classifyRecipe(r,i);if(o.missing.length===0)available.push(o);else if(o.missing.length===1&&o.matched>=1)oneAway.push(o)})}
- available.sort((a,b)=>b.pantryRank-a.pantryRank||b.matched-a.matched||a.cond.length-b.cond.length||RECIPES[a.i][2]-RECIPES[b.i][2]);
+ const ranked=rankRecipesV05(available);
  oneAway.sort((a,b)=>b.matched-a.matched||a.cond.length-b.cond.length||RECIPES[a.i][2]-RECIPES[b.i][2]);
  const readyCount=available.filter(o=>o.ready).length;
  $('summary').textContent=picked.size?`主要食材齊 ${available.length} 道 · 確認可煮 ${readyCount} 道`:'選食材後立即更新';
@@ -204,10 +266,44 @@ function render(){
  $('quickSummary').textContent=`已選 ${picked.size} 種 · 主要食材齊 ${available.length} 道`;
  $('quickDetail').textContent=pantryConfirmed?`必要調味料也齊全：${readyCount} 道`:`已確認材料可做：${readyCount} 道 · 調味料可另確認`;
  if(!picked.size){$('results').innerHTML='<div class="box empty">👆 先點選一種食材，料理會立即顯示在這裡。</div>';return}
- const cards=arr=>arr.slice(0,expanded?arr.length:6).map(makeCard).join('');
- let html=`<div class="group"><strong>✓ 主要食材齊全</strong><span class="count">${available.length} 道</span></div><p class="group-note">「現在能煮」表示已選食材與必要調味都齊；尚未確認的調味不會當作已有。</p><div class="cards">${available.length?cards(available):'<div class="box empty">還沒有主食材齊全的料理，繼續點選食材看看。</div>'}</div>`;
- if(oneAway.length)html+=`<div class="group"><strong>＋ 只差 1 種主要食材</strong><span class="count">${oneAway.length} 道</span></div><div class="cards">${cards(oneAway)}</div>`;
- if(available.length>6||oneAway.length>6)html+=`<button class="more" type="button" id="more">${expanded?'收起部分結果':'展開更多料理'}</button>`;
+ const cards=arr=>arr.map(makeCard).join('');
+ const modes=[['smart','✨ 幫我精選'],['quick','⚡ 20 分鐘內'],['easy','👩‍🍳 新手簡單'],['use','🥬 多用食材']];
+ let html='';
+ if(available.length>=6){
+  html+=`<div class="v05-preferences" role="group" aria-label="料理推薦偏好">${modes.map(([mode,label])=>`<button type="button" class="v05-chip ${recommendationModeV05===mode?'on':''}" data-mode-v05="${mode}" aria-pressed="${recommendationModeV05===mode}">${label}</button>`).join('')}</div>`;
+ }
+ if(available.length>=6&&ranked.length){
+  const featured=featuredRecipesV05(ranked);
+  const shown=new Set(featured.map(o=>o.i));
+  const others=ranked.filter(o=>!shown.has(o.i));
+  html+=`<div class="group"><strong>🍳 今天優先推薦</strong><span class="count">${featured.length} 道</span></div>`;
+  html+=`<p class="group-note">先考慮材料與調味是否齊全，再看料理難易、時間和食材利用程度；盡量避免三道太像。</p>`;
+  html+=`<div class="cards v05-featured">${featured.map(o=>`<div class="v05-feature-item">${makeCard(o)}<div class="v05-reason">${labelRecipeV05(o)}</div></div>`).join('')}</div>`;
+  html+=`<div class="group"><strong>其他也能考慮</strong><span class="count">${others.length} 道</span></div>`;
+  if(others.length===0)html+='<p class="group-note">目前符合這個偏好的食譜都已經顯示在上方。</p>';
+  else if(available.length>=16&&!expanded){
+    html+=`<button type="button" class="more" data-action-v05="toggle-more">查看其他 ${others.length} 道料理 ＋</button>`;
+  }else{
+    let filtered=others;
+    if(available.length>=16){
+      const types=[['all','全部'],['main','主菜'],['side','家常菜'],['soup','湯品'],['staple','主食']];
+      html+=`<div class="v05-types" role="group" aria-label="其他料理分類">${types.map(([type,label])=>`<button type="button" class="v05-type ${categoryFilterV05===type?'on':''}" data-type-v05="${type}" aria-pressed="${categoryFilterV05===type}">${label}</button>`).join('')}</div>`;
+      filtered=others.filter(o=>categoryFilterV05==='all'||CATEGORY_BY_NAME_V05[RECIPES[o.i][0]]===categoryFilterV05);
+    }
+    html+=`<div class="cards">${filtered.length?cards(filtered):'<p class="group-note">目前沒有這個分類的其他料理。</p>'}</div>`;
+    if(available.length>=16)html+=`<button type="button" class="more" data-action-v05="toggle-more">收起其他料理 −</button>`;
+  }
+ }else if(available.length>=6&&!ranked.length){
+  html+='<div class="box empty">這個偏好暫時沒有符合的料理，可以改選「幫我精選」試試。</div>';
+ }else{
+  html+=`<div class="group"><strong>✓ 主要食材齊全</strong><span class="count">${available.length} 道</span></div><p class="group-note">「現在能煮」表示必要食材與調味都已確認；沒確認調味料的料理會清楚標示。</p><div class="cards">${available.length?cards(ranked):'<div class="box empty">還沒有主食材齊全的料理，繼續點選食材看看。</div>'}</div>`;
+ }
+ if(oneAway.length){
+  html+=`<div class="group"><strong>＋ 只差 1 種主要食材</strong><span class="count">${oneAway.length} 道</span></div>`;
+  const seeAll=expanded||oneAway.length<=4;
+  html+=`<div class="cards">${cards(seeAll?oneAway:oneAway.slice(0,4))}</div>`;
+  if(oneAway.length>4)html+=`<button type="button" class="more" data-action-v05="toggle-more">${expanded?'收起缺料料理 −':`查看另外 ${oneAway.length-4} 道缺料料理 ＋`}</button>`;
+ }
  $('results').innerHTML=html;
 }
 function openRecipe(i){
@@ -219,8 +315,14 @@ function openRecipe(i){
 }
 $('cats').addEventListener('click',e=>{const b=e.target.closest('[data-group]');if(b){active=b.dataset.group;render()}});
 $('foods').addEventListener('click',e=>{const b=e.target.closest('[data-food]');if(b)toggle(b.dataset.food)});
-$('picked').addEventListener('click',e=>{const b=e.target.closest('[data-food]');if(b)toggle(b.dataset.food);if(e.target.id==='clear'){picked.clear();save();render()}});
-$('results').addEventListener('click',e=>{const b=e.target.closest('[data-recipe]');if(b)openRecipe(Number(b.dataset.recipe));if(e.target.id==='more'){expanded=!expanded;render()}});
+$('picked').addEventListener('click',e=>{const b=e.target.closest('[data-food]');if(b)toggle(b.dataset.food);if(e.target.id==='clear'){picked.clear();expanded=false;categoryFilterV05='all';save();render()}});
+function resultClickV05(e){
+ const recipe=e.target.closest('[data-recipe]');if(recipe){openRecipe(Number(recipe.dataset.recipe));return}
+ const mode=e.target.closest('[data-mode-v05]');if(mode){recommendationModeV05=mode.dataset.modeV05;expanded=false;categoryFilterV05='all';render();return}
+ const type=e.target.closest('[data-type-v05]');if(type){categoryFilterV05=type.dataset.typeV05;render();return}
+ const more=e.target.closest('[data-action-v05]');if(more){expanded=!expanded;categoryFilterV05='all';render()}
+}
+$('results').addEventListener('click',resultClickV05);
 $('recipeDialog').addEventListener('click',e=>{if(e.target===$('recipeDialog'))$('recipeDialog').close()});
 $('pantryToggle').addEventListener('click',()=>{const show=$('pantryPanel').hidden;$('pantryPanel').hidden=!show;$('pantryToggle').setAttribute('aria-expanded',String(show));$('pantryChevron').textContent=show?'⌃':'⌄'});
 $('pantryFoods').addEventListener('click',e=>{const b=e.target.closest('[data-pantry]');if(!b)return;const s=b.dataset.pantry;if(pantry.has(s))pantry.delete(s);else pantry.add(s);pantryConfirmed=false;save();render()});
@@ -234,7 +336,7 @@ $('addFood').addEventListener('click',searchAndAdd);$('search').addEventListener
 // 開發自我檢查：每道食譜都必須定義調味規則，避免漏標後錯誤顯示「現在能煮」。
 if(RECIPES.some(r=>!(r[0] in PANTRY_RULES)))console.warn('有食譜尚未定義必要調味料規則');
 
-// V0.4 食譜品質加強：沿用原本的操作介面、分類及安全篩選規則。
+// V0.5 食譜品質加強：沿用原本的操作介面、分類及安全篩選規則。
 const EXTRA_RECIPES_V04=[
  ['水煮蛋','🥚',15,['雞蛋'],'水；鹽可省略',['雞蛋先放入鍋中，加冷水蓋過雞蛋約 2 公分。','開中火煮至水滾後轉小火，再煮約 10～12 分鐘。','撈出放涼水冷卻，剝殼後確認蛋黃和蛋白均已凝固。'],'從冷水開始計時容易混淆：上述 10～12 分鐘是水滾後的時間，依蛋大小調整。'],
  ['荷包蛋','🍳',8,['雞蛋'],'食用油、可選鹽',['平底鍋加約 1 茶匙油，以中小火預熱。','將雞蛋打入鍋中，煎約 2～3 分鐘。','小心翻面再煎約 2～3 分鐘，直到蛋白與蛋黃都凝固。'],'若不易翻面，可加少量水蓋鍋燜熟；油溫過高容易焦。'],
@@ -381,8 +483,11 @@ openRecipe=function(i){
   root.appendChild(p);
  }
 };
-// V0.4 補齊所有食譜調味規則，否則不應顯示「現在能煮」
+// V0.5 補齊所有食譜調味規則，否則不應顯示「現在能煮」
 if(RECIPES.some(r=>!(r[0] in PANTRY_RULES)))throw new Error('食譜缺少必要調味規則');
+
+// V0.5 食譜類型必須完整且唯一，不可因菜名調整造成篩選漏掉料理。
+if(RECIPES.some(r=>!CATEGORY_BY_NAME_V05[r[0]])||Object.keys(CATEGORY_BY_NAME_V05).length!==RECIPES.length)console.warn('V0.5 部分食譜尚未完整分類');
 
 render();
 </script>

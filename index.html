@@ -62,7 +62,7 @@ h1,h2,h3,p{margin:0}main{max-width:960px;padding:24px 24px 110px;margin:auto}
 .v05-chip.on,.v05-type.on{background:#334b3b;border-color:#334b3b;color:#fff}
 .v05-featured{grid-template-columns:repeat(3,minmax(0,1fr))}
 .v05-feature-item{min-width:0;border:1px solid #eadfd0;border-radius:19px;overflow:hidden;background:#fffefa}
-.v05-feature-item .recipe{border:0;border-radius:0;box-shadow:none;height:100%;min-height:110px}
+.v05-feature-item .recipe{border:0;border-radius:0;box-shadow:none;min-height:110px}
 .v05-feature-item .badge{white-space:normal;text-align:center}
 .v05-reason{font-size:11px;color:#7a806f;padding:0 14px 10px}
 @media(max-width:800px){.v05-featured{grid-template-columns:1fr}}
@@ -181,7 +181,7 @@ const GROUP_ICONS={'常用':'✨','蔬菜':'🥬','肉類':'🥩','蛋豆':'🥚
 const FOOD_ICONS={'雞蛋':'🥚','番茄':'🍅','豆腐':'◻️','洋蔥':'🧅','高麗菜':'🥬','豬肉片':'🥩','雞肉':'🍗','青蔥':'🌱','蒜頭':'🧄','白飯':'🍚','馬鈴薯':'🥔','紅蘿蔔':'🥕','青江菜':'🥬','空心菜':'🥬','青椒':'🫑','絲瓜':'🥒','香菇':'🍄','薑':'🫚','豬絞肉':'🥩','豆干':'🫘','蝦仁':'🦐','蛤蜊':'🐚','海帶芽':'🌿','麵條':'🍜','味噌':'🥣','咖哩塊':'🍛','豆瓣醬':'🌶️','九層塔':'🌱','麻油':'🫙'};
 let active='常用',expanded=false;
 function save(){try{localStorage.setItem(keys.picked,JSON.stringify([...picked]));localStorage.setItem(keys.pantry,JSON.stringify([...pantry]));localStorage.setItem(keys.confirmed,String(pantryConfirmed))}catch{}}
-function toggle(food){if(picked.has(food))picked.delete(food);else picked.add(food);expanded=false;categoryFilterV05='all';save();render()}
+function toggle(food){if(picked.has(food))picked.delete(food);else picked.add(food);expanded=false;expandedNearV05=false;categoryFilterV05='all';save();render()}
 function formatPantry(x){return Array.isArray(x)?x.join('／')+'（任一）':x}
 function hasPantry(x){return Array.isArray(x)?x.some(y=>pantry.has(y)):pantry.has(x)}
 function classifyRecipe(r,i){
@@ -205,7 +205,7 @@ const CATEGORY_LABELS_V05={main:'主菜',side:'家常菜',soup:'湯品',staple:'
 const HARD_V05=new Set(["雞肉蛋炒飯","蝦仁蛋炒飯","家常麻婆豆腐","洋蔥肉末炒蛋","高麗菜雞肉炒飯","番茄雞肉燴飯"]);
 const MEDIUM_V05=new Set(["家常蒸蛋","豆腐蒸蛋","洋蔥炒豬肉","高麗菜炒豬肉","蒜香雞肉","洋蔥炒雞肉","雞肉馬鈴薯燉煮","馬鈴薯燉豬肉","青椒炒豬肉","豬肉炒蛋","蛋炒飯","高麗菜蛋炒飯","香煎豆腐","蝦仁炒蛋","蒜香蝦仁","蛤蜊清湯","蛤蜊絲瓜","馬鈴薯煎餅","香菇雞湯","青椒炒雞肉","咖哩雞肉","蒜香炒麵","荷包蛋","絲瓜炒蛋","番茄蛋炒飯","洋蔥炒蝦仁","肉末燴豆腐","薑絲雞湯"]);
 const CATEGORY_BY_NAME_V05=Object.fromEntries(Object.entries(CATEGORY_GROUPS_V05).flatMap(([cat,names])=>names.map(name=>[name,cat])));
-let recommendationModeV05='smart',categoryFilterV05='all';
+let recommendationModeV05='smart',categoryFilterV05='all',expandedNearV05=false;
 function difficultyV05(name){return HARD_V05.has(name)?3:MEDIUM_V05.has(name)?2:1}
 function scoreRecipeV05(o){
  const r=RECIPES[o.i],time=r[2],difficulty=difficultyV05(r[0]);
@@ -259,7 +259,8 @@ function render(){
  const available=[],oneAway=[];
  if(picked.size){RECIPES.forEach((r,i)=>{const o=classifyRecipe(r,i);if(o.missing.length===0)available.push(o);else if(o.missing.length===1&&o.matched>=1)oneAway.push(o)})}
  const ranked=rankRecipesV05(available);
- oneAway.sort((a,b)=>b.matched-a.matched||a.cond.length-b.cond.length||RECIPES[a.i][2]-RECIPES[b.i][2]);
+ const visibleOneAway=oneAway.filter(o=>recommendationModeV05==='quick'?RECIPES[o.i][2]<=20:recommendationModeV05==='easy'?difficultyV05(RECIPES[o.i][0])<=2:true);
+ visibleOneAway.sort((a,b)=>b.matched-a.matched||a.cond.length-b.cond.length||RECIPES[a.i][2]-RECIPES[b.i][2]);
  const readyCount=available.filter(o=>o.ready).length;
  $('summary').textContent=picked.size?`主要食材齊 ${available.length} 道 · 確認可煮 ${readyCount} 道`:'選食材後立即更新';
  $('quickbar').hidden=!picked.size;
@@ -298,11 +299,11 @@ function render(){
  }else{
   html+=`<div class="group"><strong>✓ 主要食材齊全</strong><span class="count">${available.length} 道</span></div><p class="group-note">「現在能煮」表示必要食材與調味都已確認；沒確認調味料的料理會清楚標示。</p><div class="cards">${available.length?cards(ranked):'<div class="box empty">還沒有主食材齊全的料理，繼續點選食材看看。</div>'}</div>`;
  }
- if(oneAway.length){
-  html+=`<div class="group"><strong>＋ 只差 1 種主要食材</strong><span class="count">${oneAway.length} 道</span></div>`;
-  const seeAll=expanded||oneAway.length<=4;
-  html+=`<div class="cards">${cards(seeAll?oneAway:oneAway.slice(0,4))}</div>`;
-  if(oneAway.length>4)html+=`<button type="button" class="more" data-action-v05="toggle-more">${expanded?'收起缺料料理 −':`查看另外 ${oneAway.length-4} 道缺料料理 ＋`}</button>`;
+ if(visibleOneAway.length){
+  html+=`<div class="group"><strong>＋ 只差 1 種主要食材</strong><span class="count">${visibleOneAway.length} 道</span></div>`;
+  const seeAll=expandedNearV05||visibleOneAway.length<=4;
+  html+=`<div class="cards">${cards(seeAll?visibleOneAway:visibleOneAway.slice(0,4))}</div>`;
+  if(visibleOneAway.length>4)html+=`<button type="button" class="more" data-action-v05="toggle-near">${expandedNearV05?'收起缺料料理 −':`查看另外 ${visibleOneAway.length-4} 道缺料料理 ＋`}</button>`;
  }
  $('results').innerHTML=html;
 }
@@ -315,12 +316,12 @@ function openRecipe(i){
 }
 $('cats').addEventListener('click',e=>{const b=e.target.closest('[data-group]');if(b){active=b.dataset.group;render()}});
 $('foods').addEventListener('click',e=>{const b=e.target.closest('[data-food]');if(b)toggle(b.dataset.food)});
-$('picked').addEventListener('click',e=>{const b=e.target.closest('[data-food]');if(b)toggle(b.dataset.food);if(e.target.id==='clear'){picked.clear();expanded=false;categoryFilterV05='all';save();render()}});
+$('picked').addEventListener('click',e=>{const b=e.target.closest('[data-food]');if(b)toggle(b.dataset.food);if(e.target.id==='clear'){picked.clear();expanded=false;expandedNearV05=false;categoryFilterV05='all';save();render()}});
 function resultClickV05(e){
  const recipe=e.target.closest('[data-recipe]');if(recipe){openRecipe(Number(recipe.dataset.recipe));return}
- const mode=e.target.closest('[data-mode-v05]');if(mode){recommendationModeV05=mode.dataset.modeV05;expanded=false;categoryFilterV05='all';render();return}
+ const mode=e.target.closest('[data-mode-v05]');if(mode){recommendationModeV05=mode.dataset.modeV05;expanded=false;expandedNearV05=false;categoryFilterV05='all';render();return}
  const type=e.target.closest('[data-type-v05]');if(type){categoryFilterV05=type.dataset.typeV05;render();return}
- const more=e.target.closest('[data-action-v05]');if(more){expanded=!expanded;categoryFilterV05='all';render()}
+ const more=e.target.closest('[data-action-v05]');if(more){if(more.dataset.actionV05==='toggle-near')expandedNearV05=!expandedNearV05;else{expanded=!expanded;categoryFilterV05='all'}render()}
 }
 $('results').addEventListener('click',resultClickV05);
 $('recipeDialog').addEventListener('click',e=>{if(e.target===$('recipeDialog'))$('recipeDialog').close()});

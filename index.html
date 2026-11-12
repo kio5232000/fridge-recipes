@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#fff3db">
-<title>冰箱有什麼？｜清新廚房 V0.3</title>
+<title>冰箱有什麼？｜清新廚房 V0.4</title>
 <meta name="description" content="免登入，點選家裡現有食材，立即找到適合的家常料理。">
 <style>
 /* V0.3 - 清新廚房 / editorial kitchen */
@@ -59,7 +59,7 @@ h1,h2,h3,p{margin:0}main{max-width:960px;padding:24px 24px 110px;margin:auto}
 </head>
 <body>
 <main>
-<header class="hero"><div class="hero-copy"><div class="eyebrow"><span class="eyebrow-dot"></span> THE LITTLE KITCHEN</div><div class="reset-row"><h1>冰箱有什麼<span class="punct">？</span></h1><span class="beta">V0.3</span></div><p>點選食材，馬上找到今天能煮的菜。</p></div><div class="hero-art" aria-hidden="true"><span class="hero-leaf">✳</span><div class="hero-plate"><span>🍅</span><span>🥬</span><span>🥚</span></div></div></header>
+<header class="hero"><div class="hero-copy"><div class="eyebrow"><span class="eyebrow-dot"></span> THE LITTLE KITCHEN</div><div class="reset-row"><h1>冰箱有什麼<span class="punct">？</span></h1><span class="beta">V0.4</span></div><p>點選食材，馬上找到今天能煮的菜。</p></div><div class="hero-art" aria-hidden="true"><span class="hero-leaf">✳</span><div class="hero-plate"><span>🍅</span><span>🥬</span><span>🥚</span></div></div></header>
 <section class="box" aria-label="選擇食材">
 <p class="step">看看冰箱裡有什麼 <span style="font-size:11px;font-weight:500;color:#8f9488">· 可複選</span></p>
 <div class="cats" id="cats" role="group" aria-label="食材分類"></div>
@@ -78,7 +78,7 @@ h1,h2,h3,p{margin:0}main{max-width:960px;padding:24px 24px 110px;margin:auto}
 </section>
 <div class="resultheader"><h2>今天可以煮什麼？</h2><small id="summary" aria-live="polite"></small></div>
 <section id="results"></section>
-<p class="footer">免登入・點選即時更新・食材與調味料只儲存在這台裝置<br>食譜與調味需求為測試資料，仍須確認份量與食材狀況。<br>不會任意替換傳統料理的核心材料。</p>
+<p class="footer">免登入・點選即時更新・食材與調味料只儲存在這台裝置<br>食譜為新手參考用；請確認食材份量、保存狀況與熟度。<br>不會任意替換傳統料理的核心材料。</p>
 </main>
 <aside class="quickbar" id="quickbar" hidden aria-label="即時推薦結果"><div class="quickbar-inner"><div class="numbers"><strong id="quickSummary"></strong><span id="quickDetail"></span></div><button type="button" class="jump" id="jumpResults">看料理 ↓</button></div></aside>
 <dialog class="dialog" id="recipeDialog" aria-label="食譜詳情"><div class="dialogin" id="dialogContent"></div></dialog>
@@ -233,6 +233,157 @@ function searchAndAdd(){let v=$('search').value.trim();if(!v)return;let found=al
 $('addFood').addEventListener('click',searchAndAdd);$('search').addEventListener('keydown',e=>{if(e.key==='Enter')searchAndAdd()});
 // 開發自我檢查：每道食譜都必須定義調味規則，避免漏標後錯誤顯示「現在能煮」。
 if(RECIPES.some(r=>!(r[0] in PANTRY_RULES)))console.warn('有食譜尚未定義必要調味料規則');
+
+// V0.4 食譜品質加強：沿用原本的操作介面、分類及安全篩選規則。
+const EXTRA_RECIPES_V04=[
+ ['水煮蛋','🥚',15,['雞蛋'],'水；鹽可省略',['雞蛋先放入鍋中，加冷水蓋過雞蛋約 2 公分。','開中火煮至水滾後轉小火，再煮約 10～12 分鐘。','撈出放涼水冷卻，剝殼後確認蛋黃和蛋白均已凝固。'],'從冷水開始計時容易混淆：上述 10～12 分鐘是水滾後的時間，依蛋大小調整。'],
+ ['荷包蛋','🍳',8,['雞蛋'],'食用油、可選鹽',['平底鍋加約 1 茶匙油，以中小火預熱。','將雞蛋打入鍋中，煎約 2～3 分鐘。','小心翻面再煎約 2～3 分鐘，直到蛋白與蛋黃都凝固。'],'若不易翻面，可加少量水蓋鍋燜熟；油溫過高容易焦。'],
+ ['高麗菜蛋花湯','🥣',15,['高麗菜','雞蛋'],'水約 500 ml、鹽',['高麗菜洗淨切成小片；雞蛋打散。','鍋中煮滾約 500 ml 水，先煮高麗菜約 5 分鐘至變軟。','轉小火緩緩倒入蛋液，再煮至蛋花完全凝固，少量加鹽。'],'蛋液入鍋後先不要用力攪拌，蛋花較完整。'],
+ ['青江菜豆腐湯','🥬',15,['青江菜','豆腐'],'水約 500 ml、鹽',['青江菜充分洗淨切段，豆腐切小塊。','約 500 ml 水煮滾後放入青江菜梗，煮約 2 分鐘。','加入葉片與豆腐，再煮約 3～4 分鐘至熱透，最後加鹽。'],'先放菜梗再放菜葉，口感比較一致。'],
+ ['蒜香炒高麗菜','🥬',12,['高麗菜','蒜頭'],'食用油、鹽',['高麗菜洗淨切片、蒜頭切末。','鍋中放約 2 茶匙油，轉中小火炒香蒜末約 20～30 秒，不要炒焦。','放入高麗菜，翻炒約 4～6 分鐘；必要時加 1～2 湯匙水，炒熟加鹽。'],'粗梗比較難熟，建議先切薄片。'],
+ ['香菇燴豆腐','🍄',18,['香菇','豆腐'],'食用油、醬油、水約 150 ml',['香菇切片、板豆腐切塊，備好約 150 ml 水。','鍋中放 1 茶匙油，先炒香菇約 3～4 分鐘。','放入豆腐、水及 1 茶匙醬油，轉小火煮 5 分鐘至熱透。'],'嫩豆腐也能做，但要輕輕翻動避免破碎。'],
+ ['蒜炒香菇','🍄',12,['香菇','蒜頭'],'食用油、鹽',['香菇擦淨或快速洗淨後瀝乾，切片；蒜頭切末。','鍋中放 2 茶匙油，小火炒香蒜末約 20 秒。','加入香菇翻炒約 5～7 分鐘至熟軟，最後少量加鹽。'],'如果使用乾香菇，先充分泡發，再依厚度延長時間。'],
+ ['絲瓜炒蛋','🥒',18,['絲瓜','雞蛋'],'食用油、鹽、水少許',['絲瓜削皮切塊，雞蛋打散。','鍋中放油，先炒蛋至凝固，盛出備用。','原鍋放絲瓜與約 2 湯匙水，蓋鍋燜約 5～7 分鐘至軟，再放回蛋拌勻加鹽。'],'絲瓜會出水，不需一次加太多水。'],
+ ['青椒炒蛋','🫑',15,['青椒','雞蛋'],'食用油、鹽',['青椒去籽切細條，雞蛋打散。','鍋中放 1 茶匙油，將青椒炒約 3～4 分鐘。','加入少量油與蛋液，翻炒至蛋液完全凝固後加鹽。'],'喜歡軟一點的青椒，可以先多炒 1～2 分鐘。'],
+ ['番茄蛋炒飯','🍚',20,['番茄','雞蛋','白飯'],'食用油、鹽；可選醬油',['番茄切小丁，雞蛋打散；熟飯先撥鬆。','先將雞蛋炒至凝固盛起，再炒番茄約 3 分鐘收掉部分水分。','加入熟飯炒散並加熱透，最後放回雞蛋拌勻、加鹽。'],'使用妥善冷藏的熟飯；剩飯需充分重新加熱至中心 74°C。'],
+ ['洋蔥炒蝦仁','🦐',16,['洋蔥','蝦仁'],'食用油、鹽；可選黑胡椒',['洋蔥切絲；蝦仁去腸泥、瀝乾。','鍋中放油，先炒洋蔥約 4～5 分鐘至軟。','加入蝦仁拌炒約 3～5 分鐘（依大小調整），至蝦肉不透明且熟透，加鹽。'],'蝦仁煮熟會轉為不透明色，避免長時間過度加熱。'],
+ ['肉末燴豆腐','🍲',20,['豬絞肉','豆腐'],'食用油、醬油、水約 120 ml',['豆腐切塊，豬絞肉用乾淨器具分散。','鍋中放油，將豬絞肉炒散、徹底煮熟。','加入豆腐、約 120 ml 水及 1～2 茶匙醬油，煮約 5 分鐘至豆腐熱透。'],'豬絞肉中心溫度建議達 71°C；生熟器具要分開。'],
+ ['洋蔥肉末炒蛋','🍳',20,['洋蔥','豬絞肉','雞蛋'],'食用油、鹽；可選醬油',['洋蔥切丁，雞蛋打散。','先將豬絞肉炒散至中心完全熟透，再加入洋蔥炒軟。','倒入蛋液，持續翻炒至蛋完全凝固，最後少量調味。'],'絞肉中心應達 71°C，雞蛋也要充分凝固。'],
+ ['九層塔煎蛋','🌿',12,['雞蛋','九層塔'],'食用油、鹽',['九層塔洗淨瀝乾，切碎；雞蛋打散並加少量鹽。','混合九層塔與蛋液，平底鍋加入油以中小火預熱。','倒入蛋液，兩面煎至完全凝固。'],'九層塔不用太多，約一小把就能帶出香氣。'],
+ ['高麗菜雞肉炒飯','🍚',22,['高麗菜','雞肉','白飯'],'食用油、鹽；可選醬油',['雞肉切小丁，高麗菜切細絲，熟飯撥鬆。','先炒雞肉至中心達 74°C，盛出備用。','炒軟高麗菜後加入熟飯炒熱，放回雞肉炒勻加鹽。'],'熟飯需妥善冷藏並充分加熱，生雞肉的砧板不能接觸已熟的食物。'],
+ ['番茄雞肉燴飯','🍅',25,['番茄','雞肉','白飯'],'食用油、鹽、水約 100 ml',['雞肉切成小丁，番茄切塊；熟飯另外加熱備用。','鍋中放少量油，將雞肉翻炒後加入番茄與約 100 ml 水。','轉中火燜煮約 8～12 分鐘，確認雞肉中心達 74°C，調味後淋在熱飯上。'],'雞肉的熟度應用食物溫度計確認；不要只憑表面變白。'],
+ ['薑絲雞湯','🍲',35,['雞肉','薑'],'水約 700 ml、鹽',['雞肉切成適口塊；薑洗淨切絲。','鍋中加入約 700 ml 水、雞肉與薑絲，加熱至滾後撇去浮沫。','轉小火煮約 20～25 分鐘，確認雞肉中心達 74°C，最後加鹽。'],'雞肉帶骨或切塊較大時需延長時間；先確認熟度再喝湯。'],
+ ['蒜香炒豆干','🫘',13,['豆干','蒜頭'],'食用油、醬油',['豆干切細條，蒜頭切末。','鍋中放油，小火炒香蒜頭約 20 秒。','放入豆干炒約 4～6 分鐘至熱透，淋 1 茶匙醬油拌勻。'],'豆干原本可能有鹹味，醬油先少放。']
+];
+const EXTRA_PANTRY_RULES_V04={
+'水煮蛋':[],'荷包蛋':['食用油'],'高麗菜蛋花湯':['鹽'],
+'青江菜豆腐湯':['鹽'],'蒜香炒高麗菜':['食用油','鹽'],
+'香菇燴豆腐':['食用油','醬油'],'蒜炒香菇':['食用油','鹽'],
+'絲瓜炒蛋':['食用油','鹽'],'青椒炒蛋':['食用油','鹽'],
+'番茄蛋炒飯':['食用油','鹽'],'洋蔥炒蝦仁':['食用油','鹽'],
+'肉末燴豆腐':['食用油','醬油'],'洋蔥肉末炒蛋':['食用油','鹽'],
+'九層塔煎蛋':['食用油','鹽'],'高麗菜雞肉炒飯':['食用油','鹽'],
+'番茄雞肉燴飯':['食用油','鹽'],'薑絲雞湯':['鹽'],
+'蒜香炒豆干':['食用油','醬油']
+};
+const DEFAULT_PORTIONS_V04={
+'雞蛋':'2 顆','番茄':'1 顆（約 150g）','豆腐':'約 200g','洋蔥':'半顆（約 100g）',
+'高麗菜':'約 200g','豬肉片':'約 180g','雞肉':'約 220g','青蔥':'1～2 根',
+'蒜頭':'2 瓣','白飯':'熟飯 2 碗（約 300g）','馬鈴薯':'1～2 顆（約 250g）',
+'紅蘿蔔':'半根（約 80g）','青江菜':'約 200g','空心菜':'約 200g',
+'青椒':'1 顆','絲瓜':'約半條（250g）','香菇':'4～6 朵','薑':'約 10g',
+'豬絞肉':'約 180g','豆干':'約 200g','蝦仁':'約 180g','蛤蜊':'帶殼約 400g',
+'海帶芽':'乾燥約 5g','麵條':'乾麵約 160g','味噌':'約 2 湯匙（30g）',
+'咖哩塊':'依包裝建議，約 2 小塊','豆瓣醬':'1～2 茶匙','九層塔':'約 1 小把','麻油':'約 2 茶匙'
+};
+const PORTION_OVERRIDES_V04={
+'番茄炒蛋':{'番茄':'2 顆（約 300g）','雞蛋':'3 顆'},
+'家常蒸蛋':{'雞蛋':'2 顆'},
+'豆腐蒸蛋':{'雞蛋':'2 顆','豆腐':'約 150g'},
+'番茄蛋花湯':{'番茄':'1～2 顆（約 200g）'},
+'香菇雞湯':{'雞肉':'約 300g'},
+'薑絲雞湯':{'雞肉':'約 300g'},
+'咖哩雞肉':{'雞肉':'約 250g','馬鈴薯':'1 顆（約 180g）'},
+'雞肉馬鈴薯燉煮':{'雞肉':'約 250g','馬鈴薯':'1 顆（約 200g）'},
+'馬鈴薯燉豬肉':{'豬肉片':'約 200g','馬鈴薯':'1 顆（約 200g）'},
+'荷包蛋':{'雞蛋':'2 顆'},
+'水煮蛋':{'雞蛋':'2 顆'},
+'高麗菜蛋花湯':{'高麗菜':'約 150g'},
+'香菇燴豆腐':{'香菇':'4～5 朵','豆腐':'約 250g'},
+'絲瓜炒蛋':{'絲瓜':'約半條（250g）'},
+'九層塔煎蛋':{'九層塔':'約 1 小把'},
+'番茄蛋炒飯':{'番茄':'1 顆（約 150g）'},
+'番茄雞肉燴飯':{'番茄':'2 顆（約 300g）'}
+};
+const COOKING_DETAILS_V04={
+'番茄炒蛋':'建議先炒蛋約 1～2 分鐘、盛起；番茄炒約 3～5 分鐘後再放回蛋。',
+'家常蒸蛋':'2 顆蛋配約 150 ml 水；用小火隔水蒸約 10～15 分鐘，視容器深度確認中心凝固。',
+'豆腐蒸蛋':'2 顆蛋加約 150 ml 水，豆腐先切小塊，小火蒸約 12～16 分鐘至凝固。',
+'番茄蛋花湯':'水約 500 ml，先煮番茄約 5 分鐘；倒蛋液後煮至凝固。',
+'番茄豆腐湯':'水約 450～500 ml，煮到番茄變軟、豆腐熱透即可。',
+'海帶芽豆腐湯':'水約 500 ml；乾燥海帶芽會吸水膨脹，先用少量。',
+'香菇雞湯':'水約 650～750 ml；骨頭雞肉可能需較長時間，雞肉中心應達 74°C。',
+'蛤蜊清湯':'水約 500 ml；蛤蜊需先吐沙，烹煮後未開口者不要吃。',
+'蛤蜊絲瓜':'絲瓜約半條，蛤蜊帶殼約 400g；吐沙後下鍋，未開口者丟棄。',
+'雞肉馬鈴薯燉煮':'加水約 350 ml 與 1～2 茶匙醬油；馬鈴薯煮軟且雞肉中心達 74°C。',
+'馬鈴薯燉豬肉':'加水約 350 ml 與 1～2 茶匙醬油；確認肉片熟度。',
+'蛋炒飯':'熟飯約 300g，建議用妥善冷藏的飯；重新加熱至中心 74°C。',
+'雞肉蛋炒飯':'熟飯約 300g；雞肉先煮到中心達 74°C，再與飯拌炒至熱透。',
+'高麗菜蛋炒飯':'熟飯約 300g、高麗菜切細；飯需充分加熱。',
+'蝦仁蛋炒飯':'熟飯約 300g，蝦仁煮至不透明，飯需重新加熱至中心 74°C。',
+'家常麻婆豆腐':'豆瓣醬約 1～2 茶匙；若使用豬絞肉，中心應達 71°C。',
+'味噌豆腐湯':'水約 500 ml，味噌先用少量熱湯拌開，再倒回鍋內。',
+'咖哩雞肉':'加水約 400 ml，咖哩塊用量依包裝；雞肉中心應達 74°C。',
+'水煮蛋':'水量需蓋過雞蛋；水滾後約 10～12 分鐘，再用冷水降溫。',
+'高麗菜蛋花湯':'水約 500 ml；高麗菜切小片較快熟。',
+'青江菜豆腐湯':'水約 500 ml；先煮菜梗、再放菜葉。',
+'香菇燴豆腐':'水約 150 ml，醬油先加 1 茶匙，最後試味道。',
+'絲瓜炒蛋':'可先加約 2 湯匙水燜絲瓜，熟軟後再和炒蛋拌勻。',
+'肉末燴豆腐':'水約 120 ml；豬絞肉需先煮熟達中心 71°C。',
+'番茄雞肉燴飯':'水約 100 ml；雞肉中心達 74°C，熟飯另需熱透。',
+'薑絲雞湯':'水約 700 ml；雞肉塊大小不同需調整時間。',
+'番茄蛋炒飯':'炒番茄時先收掉一些水，才不會讓炒飯太濕。',
+'九層塔煎蛋':'九層塔約 1 小把，蛋液攤薄較容易均勻煎熟。'
+};
+if(EXTRA_RECIPES_V04.some(r=>RECIPES.some(o=>o[0]===r[0])))throw new Error('新增食譜名稱與現有資料重複');
+if(EXTRA_RECIPES_V04.some(r=>r[3].some(f=>!allFood.includes(f))))throw new Error('新增食譜使用未列在選單的食材');
+if(EXTRA_RECIPES_V04.some(r=>!(r[0] in EXTRA_PANTRY_RULES_V04)))throw new Error('新增食譜遺漏調味料規則');
+RECIPES.push(...EXTRA_RECIPES_V04);
+Object.assign(PANTRY_RULES,EXTRA_PANTRY_RULES_V04);
+// 改善舊版「香煎豆腐」等說明：這些調味料為可選，不影響必要材料判斷。
+for(const r of RECIPES){
+ if(r[0]==='香煎豆腐')r[4]='食用油、醬油可省略';
+ if(r[0]==='蒜香雞肉')r[4]='食用油、鹽、可選黑胡椒';
+ if(r[0]==='蒜香蝦仁')r[4]='食用油、鹽、可選黑胡椒';
+ if(r[0]==='高麗菜蛋炒飯')r[4]='食用油、鹽、可選醬油';
+}
+const originalOpenRecipeV04=openRecipe;
+openRecipe=function(i){
+ originalOpenRecipeV04(i);
+ const r=RECIPES[i],root=document.getElementById('dialogContent');if(!r||!root)return;
+ const meta=root.querySelector('.d-meta');
+ if(meta)meta.textContent='約 2 人份 · 全程約 '+r[2]+' 分鐘（估計）';
+ const section=root.querySelector('.d-section');
+ if(section){
+  const heading=section.querySelector('h3');
+  if(heading){
+   const desc=document.createElement('p');
+   desc.className='mini';
+   desc.style.marginBottom='9px';
+   desc.textContent='約 2 人份參考用量：若食量較大請自行增加；選過食材不代表家裡份量足夠。';
+   heading.insertAdjacentElement('afterend',desc);
+  }
+  const lis=section.querySelectorAll('ul:first-of-type > li');
+  r[3].forEach((food,j)=>{
+   if(!lis[j])return;
+   const amount=(PORTION_OVERRIDES_V04[r[0]]||{})[food]||DEFAULT_PORTIONS_V04[food]||'適量';
+   const span=document.createElement('span');
+   span.style.color='#687062';
+   span.textContent=' · '+amount;
+   lis[j].appendChild(span);
+  });
+ }
+ const detail=COOKING_DETAILS_V04[r[0]];
+ if(detail){
+  const steps=root.querySelectorAll('.d-section')[1];
+  if(steps){
+   const p=document.createElement('p');
+   p.className='needed';
+   p.textContent='📏 新手份量／時間提醒：'+detail;
+   steps.appendChild(p);
+  }
+ }
+ if(r[3].includes('雞肉')||r[3].includes('豬絞肉')||r[3].includes('白飯')){
+  const p=document.createElement('p');
+  p.className='mini';
+  p.style.marginTop='12px';
+  p.textContent=r[3].includes('雞肉')?'食安提醒：雞肉中心應達 74°C；先分開生熟器具。':r[3].includes('豬絞肉')?'食安提醒：豬絞肉中心應達 71°C。':'食安提醒：使用妥善冷藏的熟飯，剩飯加熱至中心 74°C。';
+  root.appendChild(p);
+ }
+};
+// V0.4 補齊所有食譜調味規則，否則不應顯示「現在能煮」
+if(RECIPES.some(r=>!(r[0] in PANTRY_RULES)))throw new Error('食譜缺少必要調味規則');
+
 render();
 </script>
 </body>

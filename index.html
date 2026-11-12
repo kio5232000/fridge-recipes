@@ -3,54 +3,65 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f9f8f5">
-<title>冰箱有什麼？｜食材即時找料理</title>
+<meta name="theme-color" content="#fff3db">
+<title>冰箱有什麼？｜清新廚房 V0.3</title>
 <meta name="description" content="免登入，點選家裡現有食材，立即找到適合的家常料理。">
 <style>
-:root{--bg:#f9f8f5;--paper:#fff;--ink:#292d28;--mute:#71766f;--line:#e6e8e1;--green:#3c7752;--lightgreen:#eaf4ec;--orange:#c67133;--lightorange:#fff3e6;--shadow:0 2px 9px rgba(30,40,20,.035)}
-*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","Microsoft JhengHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #6ca381;outline-offset:3px}main{max-width:720px;padding:22px 16px 48px;margin:auto}h1,h2,h3,p{margin:0}h1{font-size:28px;letter-spacing:-.7px}h2{font-size:19px}header{margin-bottom:20px}header p{font-size:14px;color:var(--mute);margin-top:3px}.step{font-size:13px;font-weight:700;color:var(--green);margin:0 0 9px}.box{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow)}.box+.box{margin-top:13px}.cats{display:flex;gap:8px;overflow-x:auto;white-space:nowrap;padding:2px 0 10px;scrollbar-width:none}.cats::-webkit-scrollbar{display:none}.cat{border:1px solid var(--line);background:white;color:#484e48;padding:8px 13px;border-radius:22px;font-size:14px;flex-shrink:0;min-height:41px}.cat.on{background:#2e6243;color:white;border-color:#2e6243}.foods{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.food{min-height:50px;border-radius:12px;border:1px solid #e6e7e1;background:#fbfbf9;color:#343a33;font-size:15px;font-weight:600;padding:7px 4px;position:relative}.food.on{background:var(--lightgreen);border:1.5px solid #72a784;color:#285d3d}.food.on:after{content:'✓';font-size:11px;position:absolute;top:2px;right:6px}.picked{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:13px 0 0}.picktag{padding:5px 9px;border-radius:100px;background:var(--lightgreen);color:#2d6b40;border:0;font-size:13px}.picked .hint{font-size:13px;color:var(--mute)}.clear{background:none;border:0;color:var(--mute);font-size:13px;text-decoration:underline;margin-left:auto}.subtle{font-size:12px;color:var(--mute);margin-top:12px}.resultheader{display:flex;align-items:center;justify-content:space-between;margin:21px 0 10px;gap:8px}.resultheader small{color:var(--green);font-size:13px}.group{margin:15px 0 8px;display:flex;align-items:center;gap:8px}.group strong{font-size:15px}.count{color:var(--mute);font-size:12px}.cards{display:grid;gap:9px}.recipe{width:100%;border:1px solid var(--line);border-radius:15px;background:var(--paper);text-align:left;padding:13px 13px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow)}.recipe:active{background:#fbfaf6}.thumb{display:grid;place-items:center;width:54px;height:54px;border-radius:12px;background:#f2f3ec;font-size:29px;flex-shrink:0}.rtext{flex:1;min-width:0}.name{font-size:16px;font-weight:700}.meta{font-size:12px;color:var(--mute);margin-top:3px}.badge{font-size:11px;border-radius:100px;padding:3px 7px;font-weight:700;white-space:nowrap}.ok{background:var(--lightgreen);color:#32704a}.miss{background:var(--lightorange);color:#a4571d}.arrow{color:#a6aba4;font-size:20px}.empty{text-align:center;padding:34px 12px;color:var(--mute);font-size:14px}.more{width:100%;padding:13px;background:transparent;border:1px solid var(--line);border-radius:12px;color:var(--green);margin-top:9px}.footer{color:#868b84;font-size:12px;line-height:1.8;text-align:center;margin-top:26px}.dialog{max-width:520px;width:calc(100% - 26px);border:0;border-radius:20px;padding:0;background:white;box-shadow:0 25px 70px #1c271b44;color:var(--ink);max-height:90vh;overflow:auto}.dialog::backdrop{background:#17211980}.dialogin{padding:20px}.dialog-top{display:flex;align-items:flex-start;gap:12px}.close{border:0;background:#f1f2ef;border-radius:99px;width:34px;height:34px;flex-shrink:0;font-size:20px;line-height:1}.d-section{margin-top:17px;padding-top:14px;border-top:1px solid var(--line)}.d-section h3{font-size:15px;margin-bottom:8px}.d-section li{margin-bottom:7px;padding-left:3px}.d-section ul,.d-section ol{margin:0;padding-left:23px}.tip{background:#f1f8f2;color:#386546;padding:12px;border-radius:11px;margin-top:13px;font-size:13px}.d-name{font-size:22px;margin-bottom:4px}.d-meta{font-size:13px;color:var(--mute)}.missing{color:#a65c24}.inlineok{color:#367848}.reset-row{display:flex;align-items:center;gap:10px}.beta{font-size:11px;border:1px solid #d7dcd2;padding:2px 7px;border-radius:8px;color:#788076}.input-toggle{padding:0;background:transparent;border:0;text-decoration:underline;color:var(--mute);font-size:12px}.search-wrap{margin-top:10px;display:none;gap:7px}.search-wrap.visible{display:flex}.search-wrap input{min-width:0;flex:1;border:1px solid var(--line);border-radius:11px;padding:10px;font-size:14px}.search-wrap button{border:0;border-radius:10px;padding:0 13px;background:var(--green);color:white}.mini{font-size:12px;color:var(--mute)}
-@media(min-width:620px){main{padding:34px 24px 60px}.foods{grid-template-columns:repeat(4,minmax(0,1fr))}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.recipe{min-height:91px}}
-
-/* V0.2 — 即時回饋與收合式調味料確認 */
-.pantry-control{margin-top:15px;border-top:1px solid var(--line);padding-top:12px}
-.pantry-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 2px;border:0;background:transparent;color:var(--ink);text-align:left;font-size:14px;font-weight:700}
-.pantry-toggle .pantry-state{font-size:12px;font-weight:500;color:var(--mute);margin-left:auto}
-.pantry-panel{margin-top:8px;background:#fafbf8;border:1px solid var(--line);border-radius:13px;padding:12px}
-.pantry-panel[hidden]{display:none}
-.pantry-desc{font-size:12px;color:var(--mute);margin-bottom:10px}
-.pantry-foods{display:flex;flex-wrap:wrap;gap:7px}
-.pantry-food{border-radius:100px;padding:7px 11px;border:1px solid #dfe5dc;background:white;color:var(--ink);font-size:13px}
-.pantry-food.on{border-color:#7bb38d;background:var(--lightgreen);color:#285d3d;font-weight:700}
-.pantry-actions{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:12px;flex-wrap:wrap}
-.pantry-quick{background:transparent;border:0;color:var(--green);font-size:12px;text-decoration:underline;padding:7px 0}
-.pantry-done{background:var(--green);color:#fff;border:0;border-radius:11px;padding:10px 13px;font-size:13px;font-weight:700}
-.badge.check{background:#edf0f3;color:#58636d}
-.badge.soon{background:#fdf0dd;color:#956020}
-.quickbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom,0px));width:min(680px,calc(100% - 24px));border:1px solid #bdd4c4;border-radius:18px;background:rgba(251,255,251,.97);box-shadow:0 12px 30px #13271720;z-index:10;padding:11px 13px;backdrop-filter:blur(8px)}
-.quickbar[hidden]{display:none}
-.quickbar-inner{display:flex;gap:10px;align-items:center;justify-content:space-between}
-.quickbar-inner .numbers{display:flex;flex-direction:column;min-width:0}
-.quickbar-inner strong{font-size:14px;line-height:1.35}
-.quickbar-inner span{font-size:12px;color:var(--mute);line-height:1.5}
-.jump{white-space:nowrap;flex-shrink:0;background:var(--green);color:white;border:0;border-radius:12px;min-height:42px;padding:8px 14px;font-size:14px;font-weight:700}
-.needed{background:#f9faf7;padding:10px 12px;border-radius:11px;margin-top:12px;font-size:13px}
-.needed .st{font-weight:700;margin-bottom:5px}
-.needed ul{padding-left:18px!important;margin:0!important}
-.needed li{margin-bottom:4px!important}
-.needed .unknown{color:#667076}
-.needed .ready{color:#31724a}
-.needed .absent{color:#a65c24}
-.group-note{font-size:12px;color:var(--mute);margin:4px 0 8px}
-@media(min-width:800px){.quickbar{display:none}}
-@media(max-width:380px){.recipe{gap:9px;padding:11px 9px}.thumb{width:48px;height:48px}.badge{font-size:10px}.name{font-size:15px}}
+/* V0.3 - 清新廚房 / editorial kitchen */
+:root{--bg:#f8f5ee;--paper:#fffdfa;--ink:#29372e;--mute:#73766d;--line:#eae4d8;--green:#457b57;--lightgreen:#e9f2e7;--orange:#d66b44;--lightorange:#fff1e6;--shadow:0 7px 22px rgba(66,58,39,.055)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","Microsoft JhengHei",sans-serif;line-height:1.55;color:var(--ink);background:radial-gradient(ellipse 650px 400px at 100% -160px,#fff0ce99,transparent),var(--bg)}
+button,input{font:inherit}button{cursor:pointer;-webkit-tap-highlight-color:transparent}button:focus-visible,input:focus-visible{outline:3px solid #ee9a70;outline-offset:3px}
+h1,h2,h3,p{margin:0}main{max-width:960px;padding:24px 24px 110px;margin:auto}
+/* 料理小誌風格封面，不影響原本動線 */
+.hero{position:relative;overflow:hidden;min-height:185px;display:flex;align-items:center;border:1px solid #ebdcc0;border-radius:28px;background:linear-gradient(112deg,#fff3db 5%,#fff0dc 63%,#f7e6c4 100%);box-shadow:0 11px 29px #aa8b5120;margin-bottom:17px;padding:28px 34px}
+.hero:before{content:'';position:absolute;width:330px;height:330px;border:1px dashed #dfcda9;border-radius:50%;right:-110px;top:-180px;opacity:.8}
+.hero-copy{position:relative;z-index:2;max-width:70%}
+.eyebrow{display:inline-flex;align-items:center;gap:7px;color:#ad6b42;font-weight:800;font-size:11px;letter-spacing:2px;margin-bottom:8px}
+.eyebrow-dot{width:7px;height:7px;border-radius:50%;background:var(--orange)}
+.hero h1{font-family:"Noto Serif TC","Songti TC","PMingLiU",serif;font-weight:900;letter-spacing:-1.3px;font-size:37px;line-height:1.18;color:#273b2c}
+.hero h1 .punct{color:#d76945}
+.hero p{font-size:15px;color:#665b4b;margin-top:9px}
+.reset-row{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.beta{font-family:inherit;font-size:11px;letter-spacing:.5px;font-weight:800;color:#985c41;background:#ffffffa6;border:1px solid #edcfaf;border-radius:100px;padding:4px 9px}
+.hero-art{position:absolute;right:37px;top:50%;transform:translateY(-50%) rotate(9deg);width:170px;height:170px;display:grid;place-items:center}
+.hero-plate{position:relative;width:158px;height:158px;border:11px solid #fffefa;border-radius:50%;background:#f2e5c9;box-shadow:2px 9px 0 #b88f5d22,0 12px 30px #925f3b31,inset 0 0 0 2px #e4d2b6;transform:rotate(-11deg)}
+.hero-plate span{position:absolute;filter:drop-shadow(0 5px 2px #77592f12);font-size:44px}.hero-plate span:nth-child(1){top:14px;left:12px}.hero-plate span:nth-child(2){right:5px;top:34px}.hero-plate span:nth-child(3){bottom:4px;left:42px}
+.hero-leaf{position:absolute;color:#60865b;font-size:22px;top:-9px;left:0;transform:rotate(27deg)}
+/* 唯一主要操作：食材 */
+.box{background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:22px;box-shadow:var(--shadow)}.box+.box{margin-top:13px}
+.step{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:850;color:var(--ink);margin:0 0 13px}.step:before{content:'01';font-family:Georgia,serif;font-size:13px;color:white;background:var(--orange);border-radius:99px;padding:4px 7px;line-height:1}
+.cats{display:flex;gap:7px;overflow-x:auto;white-space:nowrap;padding:2px 1px 14px;scrollbar-width:none}.cats::-webkit-scrollbar{display:none}
+.cat{border:1px solid #ece7dc;background:#f7f5ef;color:#687062;padding:9px 14px;border-radius:12px;font-size:13px;font-weight:750;flex-shrink:0;min-height:43px;transition:background .16s,border-color .16s,color .16s}.cat:hover{border-color:#d9baa1}.cat.on{background:#334b3b;color:#fff;border-color:#334b3b;box-shadow:0 3px 0 #2b3f32}.cat-emoji{font-size:15px;margin-right:4px}
+.foods{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.food{min-height:77px;border-radius:15px;border:1px solid #eee6db;background:#fcfaf6;color:#42453a;font-size:14px;font-weight:750;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px 4px;transition:background .15s,border-color .15s,transform .15s}.food:hover{background:#fff4e9;border-color:#e3b99d}.food:active{transform:scale(.975)}.food-emoji{font-size:23px;line-height:1.15}.food-label{font-size:14px;line-height:1.3}.food.on{background:#fff0e4;border:2px solid #db7854;color:#914b2f}.food.on:after{content:'✓';font-size:11px;display:grid;place-items:center;width:19px;height:19px;background:#d76c48;color:white;border-radius:50%;position:absolute;top:5px;right:5px}
+.picked{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin:14px 0 0}.picked .hint{font-size:12px;color:var(--mute)}.picktag{background:#fff0e6;border:1px solid #edc7b2;color:#a65532;padding:6px 11px;border-radius:99px;font-size:12px;font-weight:700}.clear{margin-left:auto;color:#8f8e84;background:transparent;border:0;font-size:12px;text-decoration:underline}.mini{font-size:12px;color:var(--mute)}
+.pantry-control{margin-top:17px;padding-top:11px;border-top:1px dashed #e9e1d4}.pantry-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 2px;background:transparent;border:0;text-align:left;color:#505a4e;font-size:13px;font-weight:750}.pantry-toggle .pantry-state{color:var(--mute);font-size:12px;font-weight:500;margin-left:auto}.pantry-panel{margin-top:8px;border:1px solid var(--line);border-radius:16px;padding:14px;background:#f7f8f3}.pantry-panel[hidden]{display:none}.pantry-desc{font-size:12px;color:var(--mute);margin-bottom:10px}.pantry-foods{display:flex;flex-wrap:wrap;gap:7px}.pantry-food{border:1px solid #dcded4;background:#fff;border-radius:12px;padding:8px 12px;color:var(--ink);font-size:13px}.pantry-food.on{background:#eaf3e6;border-color:#a5c19c;color:#356b43;font-weight:750}.pantry-actions{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:12px}.pantry-quick{border:0;background:transparent;text-decoration:underline;color:var(--green);font-size:12px;padding:7px 0}.pantry-done{background:#334b3b;color:white;border:0;border-radius:12px;padding:10px 14px;font-size:13px;font-weight:800}
+.subtle{font-size:12px;color:var(--mute);margin-top:9px}.input-toggle{background:transparent;border:0;text-decoration:underline;color:#b2603d;font-size:12px;padding:0}.search-wrap{margin-top:10px;display:none;gap:7px}.search-wrap.visible{display:flex}.search-wrap input{min-width:0;flex:1;border:1px solid #e5ddd2;border-radius:12px;padding:10px;background:white;font-size:14px}.search-wrap button{border:0;border-radius:11px;padding:0 14px;background:#334b3b;color:white;font-weight:700}
+/* 推薦列表：編輯式料理便條卡 */
+.resultheader{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:28px 2px 8px}.resultheader h2{font-family:"Noto Serif TC","Songti TC","PMingLiU",serif;font-size:26px;letter-spacing:-.6px}.resultheader small{font-size:12px;color:#8d6954;background:#f7e9dc;border:1px solid #eddfce;border-radius:99px;padding:5px 9px}
+.group{margin:17px 0 4px;display:flex;align-items:center;gap:7px}.group strong{font-size:15px}.count{color:#8c897e;font-size:12px}.group-note{font-size:12px;color:var(--mute);margin:4px 0 10px}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.recipe{width:100%;min-height:114px;position:relative;display:flex;align-items:center;gap:12px;border:1px solid #e9e1d5;border-radius:19px;background:#fffefa;text-align:left;padding:14px 13px;box-shadow:0 3px 0 #e3dbc92d;transition:transform .15s,border-color .15s,box-shadow .15s}.recipe:hover{transform:translateY(-2px);border-color:#d7bbaa;box-shadow:0 9px 25px #75694e12}.recipe:active{transform:translateY(0)}
+.thumb{width:60px;height:66px;display:grid;place-items:center;border-radius:13px;background:#f8ecd8;font-size:32px;flex-shrink:0}.recipe:nth-child(3n+2) .thumb{background:#e7f0dd}.recipe:nth-child(3n+3) .thumb{background:#f4e5df}.rtext{flex:1;min-width:0}.name{font-size:16px;font-weight:850;line-height:1.35;color:#273a2c}.meta{font-size:11px;color:#84877d;margin-top:4px;line-height:1.45}.badge{font-size:11px;border-radius:8px;padding:4px 7px;font-weight:800;white-space:nowrap}.ok{background:#e7f3e8;color:#37754b}.miss,.soon{background:#fff0df;color:#a45c31}.badge.check{background:#ecefeb;color:#67736a}.arrow{font-size:19px;color:#d0b8a6;margin-left:-7px}
+.empty{text-align:center;padding:32px 12px;color:var(--mute);font-size:14px}.more{width:100%;padding:13px;background:transparent;border:1px solid #e1d5c6;border-radius:13px;color:#a35f42;margin-top:11px;font-weight:750}.footer{color:#999589;font-size:11px;line-height:1.9;text-align:center;margin-top:27px}
+/* 食譜詳情 */
+.dialog{max-width:530px;width:calc(100% - 28px);max-height:90vh;overflow:auto;border:0;border-radius:26px;padding:0;background:#fffefa;box-shadow:0 24px 80px #18231b5c;color:var(--ink)}.dialog::backdrop{background:#1d2b2299}.dialogin{padding:23px}.dialog-top{display:flex;align-items:flex-start;gap:13px}.dialog .thumb{background:#f6e7d4;height:63px}.close{border:0;background:#f9ebdf;color:#985639;border-radius:99px;width:35px;height:35px;flex-shrink:0;font-size:21px;line-height:1}.d-section{margin-top:18px;padding-top:15px;border-top:1px solid #ebe3d6}.d-section h3{font-size:16px;margin-bottom:9px}.d-section li{margin-bottom:7px;padding-left:3px}.d-section ul,.d-section ol{margin:0;padding-left:23px}.d-name{font-family:"Noto Serif TC","Songti TC","PMingLiU",serif;font-size:23px;line-height:1.25;margin-bottom:6px}.d-meta{font-size:13px;color:var(--mute)}.tip{background:#eef4e7;color:#43634a;border-radius:14px;padding:13px;margin-top:18px;font-size:13px}.missing{color:#ac643b}.inlineok{color:#3f8350}.needed{background:#f9f6ee;padding:11px 13px;border-radius:13px;margin-top:12px;font-size:13px}.needed .st{font-weight:800;margin-bottom:6px}.needed ul{padding-left:18px!important;margin:0!important}.needed li{margin-bottom:4px!important}.needed .unknown{color:#7a7e77}.needed .ready{color:#39804d}.needed .absent{color:#af6435}
+/* 小螢幕固定即時回饋 */
+.quickbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom,0px));width:min(680px,calc(100% - 24px));border:1px solid #e8ccb4;border-radius:17px;background:#fff8eeed;box-shadow:0 14px 35px #483c252c;z-index:10;padding:11px 11px 11px 15px;backdrop-filter:blur(12px)}.quickbar[hidden]{display:none}.quickbar-inner{display:flex;gap:10px;align-items:center;justify-content:space-between}.quickbar-inner .numbers{display:flex;flex-direction:column;min-width:0}.quickbar-inner strong{font-size:13px;line-height:1.45;color:#334637}.quickbar-inner span{font-size:11px;color:#857d70;line-height:1.5}.jump{border:0;border-radius:12px;flex-shrink:0;white-space:nowrap;min-height:43px;padding:9px 14px;background:#d56b46;color:#fff;font-size:13px;font-weight:850}
+@media(max-width:850px){.cards{grid-template-columns:1fr}main{max-width:700px}.recipe{min-height:100px}}
+@media(max-width:600px){main{padding:13px 13px 108px}.hero{padding:22px 19px;min-height:152px;border-radius:23px;margin-bottom:13px}.hero-copy{max-width:calc(100% - 75px)}.hero h1{font-size:28px;letter-spacing:-1px}.hero p{font-size:12px;margin-top:6px;line-height:1.5}.eyebrow{font-size:9px;letter-spacing:1.5px;margin-bottom:8px}.beta{padding:3px 7px;font-size:9px}.hero-art{width:110px;height:110px;right:-4px;top:53%}.hero-plate{height:102px;width:102px;border-width:7px}.hero-plate span{font-size:29px}.hero-plate span:nth-child(1){top:8px;left:6px}.hero-plate span:nth-child(2){right:3px;top:18px}.hero-plate span:nth-child(3){left:27px;bottom:0}.hero-leaf{font-size:14px}.box{padding:15px;border-radius:20px}.step{font-size:14px}.cats{gap:6px;padding-bottom:13px}.cat{padding:8px 12px;font-size:12px;min-height:41px}.foods{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.food{min-height:69px;border-radius:12px}.food-emoji{font-size:21px}.food-label{font-size:13px}.resultheader{margin-top:22px;flex-wrap:wrap;align-items:center}.resultheader h2{font-size:22px}.resultheader small{font-size:11px}.recipe{min-height:104px;gap:11px;padding:12px}.thumb{height:58px;width:57px;font-size:29px}.recipe .badge{align-self:flex-start;margin-top:5px;font-size:10px}.recipe{flex-wrap:wrap}.recipe .rtext{flex-basis:calc(100% - 95px)}.recipe .badge{margin-left:69px;margin-top:-7px}.recipe .arrow{position:absolute;right:14px;top:15px}.name{padding-right:15px}.footer{font-size:10px}}
+@media(max-width:355px){.hero-copy{max-width:calc(100% - 58px)}.hero h1{font-size:25px}.hero-art{right:-25px;opacity:.9}.food{min-height:65px}.recipe .badge{margin-left:68px}}
+@media(min-width:851px){.quickbar{display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.recipe,.food{transition:none}}
 
 </style>
 </head>
 <body>
 <main>
-<header><div class="reset-row"><h1>🍳 冰箱有什麼？</h1><span class="beta">測試版 0.2</span></div><p>家裡有什麼，就點什麼。料理會馬上出現。</p></header>
+<header class="hero"><div class="hero-copy"><div class="eyebrow"><span class="eyebrow-dot"></span> THE LITTLE KITCHEN</div><div class="reset-row"><h1>冰箱有什麼<span class="punct">？</span></h1><span class="beta">V0.3</span></div><p>點選食材，馬上找到今天能煮的菜。</p></div><div class="hero-art" aria-hidden="true"><span class="hero-leaf">✳</span><div class="hero-plate"><span>🍅</span><span>🥬</span><span>🥚</span></div></div></header>
 <section class="box" aria-label="選擇食材">
-<p class="step">選擇食材 · 可以複選</p>
+<p class="step">看看冰箱裡有什麼 <span style="font-size:11px;font-weight:500;color:#8f9488">· 可複選</span></p>
 <div class="cats" id="cats" role="group" aria-label="食材分類"></div>
 <div class="foods" id="foods"></div>
 <div class="picked" id="picked" aria-live="polite"></div>
@@ -65,7 +76,7 @@
 <p class="subtle">找不到食材？ <button type="button" class="input-toggle" id="toggleInput">從全部食材搜尋</button></p>
 <div class="search-wrap" id="searchWrap"><input id="search" placeholder="例如：香菇、蛤蜊、馬鈴薯" autocomplete="off" list="foodSuggestions" aria-label="搜尋食材"><datalist id="foodSuggestions"></datalist><button id="addFood" type="button">選取</button></div>
 </section>
-<div class="resultheader"><h2>可以煮什麼？</h2><small id="summary" aria-live="polite"></small></div>
+<div class="resultheader"><h2>今天可以煮什麼？</h2><small id="summary" aria-live="polite"></small></div>
 <section id="results"></section>
 <p class="footer">免登入・點選即時更新・食材與調味料只儲存在這台裝置<br>食譜與調味需求為測試資料，仍須確認份量與食材狀況。<br>不會任意替換傳統料理的核心材料。</p>
 </main>
@@ -155,6 +166,8 @@ const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>'
 function savedSet(key,allow){try{let list=JSON.parse(localStorage.getItem(key)||'[]');return new Set(Array.isArray(list)?list.filter(x=>allow.includes(x)):[])}catch{return new Set()}}
 let picked=savedSet(keys.picked,allFood),pantry=savedSet(keys.pantry,PANTRY);
 let pantryConfirmed=false;try{pantryConfirmed=localStorage.getItem(keys.confirmed)==='true'}catch{}
+const GROUP_ICONS={'常用':'✨','蔬菜':'🥬','肉類':'🥩','蛋豆':'🥚','海鮮':'🦐','主食':'🍚','特殊調味':'🧂'};
+const FOOD_ICONS={'雞蛋':'🥚','番茄':'🍅','豆腐':'◻️','洋蔥':'🧅','高麗菜':'🥬','豬肉片':'🥩','雞肉':'🍗','青蔥':'🌱','蒜頭':'🧄','白飯':'🍚','馬鈴薯':'🥔','紅蘿蔔':'🥕','青江菜':'🥬','空心菜':'🥬','青椒':'🫑','絲瓜':'🥒','香菇':'🍄','薑':'🫚','豬絞肉':'🥩','豆干':'🫘','蝦仁':'🦐','蛤蜊':'🐚','海帶芽':'🌿','麵條':'🍜','味噌':'🥣','咖哩塊':'🍛','豆瓣醬':'🌶️','九層塔':'🌱','麻油':'🫙'};
 let active='常用',expanded=false;
 function save(){try{localStorage.setItem(keys.picked,JSON.stringify([...picked]));localStorage.setItem(keys.pantry,JSON.stringify([...pantry]));localStorage.setItem(keys.confirmed,String(pantryConfirmed))}catch{}}
 function toggle(food){if(picked.has(food))picked.delete(food);else picked.add(food);save();render()}
@@ -175,8 +188,8 @@ function makeCard(o){
  return `<button type="button" class="recipe" data-recipe="${o.i}" aria-label="${escapeHTML(r[0])}，${escapeHTML(label)}"><span class="thumb" aria-hidden="true">${r[1]}</span><span class="rtext"><span class="name">${escapeHTML(r[0])}</span><div class="meta">約 ${r[2]} 分鐘 · 用到 ${o.matched} 種已選食材</div><div class="meta">${escapeHTML(detail)}</div></span><span class="badge ${cls}">${escapeHTML(label)}</span><span class="arrow" aria-hidden="true">›</span></button>`
 }
 function render(){
- $('cats').innerHTML=GROUPS.map(g=>`<button type="button" class="cat ${g.name===active?'on':''}" data-group="${g.name}" aria-pressed="${g.name===active}">${g.name}</button>`).join('');
- $('foods').innerHTML=GROUPS.find(g=>g.name===active).foods.map(f=>`<button type="button" class="food ${picked.has(f)?'on':''}" data-food="${f}" aria-pressed="${picked.has(f)}">${f}</button>`).join('');
+ $('cats').innerHTML=GROUPS.map(g=>`<button type="button" class="cat ${g.name===active?'on':''}" data-group="${g.name}" aria-pressed="${g.name===active}"><span class="cat-emoji" aria-hidden="true">${GROUP_ICONS[g.name]||'🍴'}</span>${g.name}</button>`).join('');
+ $('foods').innerHTML=GROUPS.find(g=>g.name===active).foods.map(f=>`<button type="button" class="food ${picked.has(f)?'on':''}" data-food="${f}" aria-pressed="${picked.has(f)}"><span class="food-emoji" aria-hidden="true">${FOOD_ICONS[f]||'🍽️'}</span><span class="food-label">${f}</span></button>`).join('');
  $('picked').innerHTML=picked.size?`<span class="mini">已選 ${picked.size} 種</span>${[...picked].map(f=>`<button class="picktag" data-food="${f}" aria-label="移除${f}">${f} ×</button>`).join('')}<button class="clear" id="clear" type="button">清空</button>`:`<span class="hint">點一下加入食材，再點一次取消</span>`;
  $('pantryFoods').innerHTML=PANTRY.map(s=>`<button type="button" class="pantry-food ${pantry.has(s)?'on':''}" data-pantry="${s}" aria-pressed="${pantry.has(s)}">${pantry.has(s)?'✓ ':''}${s}</button>`).join('');
  $('pantryStatus').textContent=pantryConfirmed?`已確認 ${pantry.size} 種`:(pantry.size?`已選 ${pantry.size} 種・未確認`:'尚未確認');

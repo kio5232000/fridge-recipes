@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f9f8f5">
+<title>冰箱有什麼？｜食材即時找料理</title>
+<meta name="description" content="免登入，點選家裡現有食材，立即找到適合的家常料理。">
+<style>
+:root{--bg:#f9f8f5;--paper:#fff;--ink:#292d28;--mute:#71766f;--line:#e6e8e1;--green:#3c7752;--lightgreen:#eaf4ec;--orange:#c67133;--lightorange:#fff3e6;--shadow:0 2px 9px rgba(30,40,20,.035)}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","Microsoft JhengHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #6ca381;outline-offset:3px}main{max-width:720px;padding:22px 16px 48px;margin:auto}h1,h2,h3,p{margin:0}h1{font-size:28px;letter-spacing:-.7px}h2{font-size:19px}header{margin-bottom:20px}header p{font-size:14px;color:var(--mute);margin-top:3px}.step{font-size:13px;font-weight:700;color:var(--green);margin:0 0 9px}.box{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow)}.box+.box{margin-top:13px}.cats{display:flex;gap:8px;overflow-x:auto;white-space:nowrap;padding:2px 0 10px;scrollbar-width:none}.cats::-webkit-scrollbar{display:none}.cat{border:1px solid var(--line);background:white;color:#484e48;padding:8px 13px;border-radius:22px;font-size:14px;flex-shrink:0;min-height:41px}.cat.on{background:#2e6243;color:white;border-color:#2e6243}.foods{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.food{min-height:50px;border-radius:12px;border:1px solid #e6e7e1;background:#fbfbf9;color:#343a33;font-size:15px;font-weight:600;padding:7px 4px;position:relative}.food.on{background:var(--lightgreen);border:1.5px solid #72a784;color:#285d3d}.food.on:after{content:'✓';font-size:11px;position:absolute;top:2px;right:6px}.picked{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:13px 0 0}.picktag{padding:5px 9px;border-radius:100px;background:var(--lightgreen);color:#2d6b40;border:0;font-size:13px}.picked .hint{font-size:13px;color:var(--mute)}.clear{background:none;border:0;color:var(--mute);font-size:13px;text-decoration:underline;margin-left:auto}.subtle{font-size:12px;color:var(--mute);margin-top:12px}.resultheader{display:flex;align-items:center;justify-content:space-between;margin:21px 0 10px;gap:8px}.resultheader small{color:var(--green);font-size:13px}.group{margin:15px 0 8px;display:flex;align-items:center;gap:8px}.group strong{font-size:15px}.count{color:var(--mute);font-size:12px}.cards{display:grid;gap:9px}.recipe{width:100%;border:1px solid var(--line);border-radius:15px;background:var(--paper);text-align:left;padding:13px 13px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow)}.recipe:active{background:#fbfaf6}.thumb{display:grid;place-items:center;width:54px;height:54px;border-radius:12px;background:#f2f3ec;font-size:29px;flex-shrink:0}.rtext{flex:1;min-width:0}.name{font-size:16px;font-weight:700}.meta{font-size:12px;color:var(--mute);margin-top:3px}.badge{font-size:11px;border-radius:100px;padding:3px 7px;font-weight:700;white-space:nowrap}.ok{background:var(--lightgreen);color:#32704a}.miss{background:var(--lightorange);color:#a4571d}.arrow{color:#a6aba4;font-size:20px}.empty{text-align:center;padding:34px 12px;color:var(--mute);font-size:14px}.more{width:100%;padding:13px;background:transparent;border:1px solid var(--line);border-radius:12px;color:var(--green);margin-top:9px}.footer{color:#868b84;font-size:12px;line-height:1.8;text-align:center;margin-top:26px}.dialog{max-width:520px;width:calc(100% - 26px);border:0;border-radius:20px;padding:0;background:white;box-shadow:0 25px 70px #1c271b44;color:var(--ink);max-height:90vh;overflow:auto}.dialog::backdrop{background:#17211980}.dialogin{padding:20px}.dialog-top{display:flex;align-items:flex-start;gap:12px}.close{border:0;background:#f1f2ef;border-radius:99px;width:34px;height:34px;flex-shrink:0;font-size:20px;line-height:1}.d-section{margin-top:17px;padding-top:14px;border-top:1px solid var(--line)}.d-section h3{font-size:15px;margin-bottom:8px}.d-section li{margin-bottom:7px;padding-left:3px}.d-section ul,.d-section ol{margin:0;padding-left:23px}.tip{background:#f1f8f2;color:#386546;padding:12px;border-radius:11px;margin-top:13px;font-size:13px}.d-name{font-size:22px;margin-bottom:4px}.d-meta{font-size:13px;color:var(--mute)}.missing{color:#a65c24}.inlineok{color:#367848}.reset-row{display:flex;align-items:center;gap:10px}.beta{font-size:11px;border:1px solid #d7dcd2;padding:2px 7px;border-radius:8px;color:#788076}.input-toggle{padding:0;background:transparent;border:0;text-decoration:underline;color:var(--mute);font-size:12px}.search-wrap{margin-top:10px;display:none;gap:7px}.search-wrap.visible{display:flex}.search-wrap input{min-width:0;flex:1;border:1px solid var(--line);border-radius:11px;padding:10px;font-size:14px}.search-wrap button{border:0;border-radius:10px;padding:0 13px;background:var(--green);color:white}.mini{font-size:12px;color:var(--mute)}
+@media(min-width:620px){main{padding:34px 24px 60px}.foods{grid-template-columns:repeat(4,minmax(0,1fr))}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.recipe{min-height:91px}}
+
+/* V0.2 — 即時回饋與收合式調味料確認 */
+.pantry-control{margin-top:15px;border-top:1px solid var(--line);padding-top:12px}
+.pantry-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 2px;border:0;background:transparent;color:var(--ink);text-align:left;font-size:14px;font-weight:700}
+.pantry-toggle .pantry-state{font-size:12px;font-weight:500;color:var(--mute);margin-left:auto}
+.pantry-panel{margin-top:8px;background:#fafbf8;border:1px solid var(--line);border-radius:13px;padding:12px}
+.pantry-panel[hidden]{display:none}
+.pantry-desc{font-size:12px;color:var(--mute);margin-bottom:10px}
+.pantry-foods{display:flex;flex-wrap:wrap;gap:7px}
+.pantry-food{border-radius:100px;padding:7px 11px;border:1px solid #dfe5dc;background:white;color:var(--ink);font-size:13px}
+.pantry-food.on{border-color:#7bb38d;background:var(--lightgreen);color:#285d3d;font-weight:700}
+.pantry-actions{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:12px;flex-wrap:wrap}
+.pantry-quick{background:transparent;border:0;color:var(--green);font-size:12px;text-decoration:underline;padding:7px 0}
+.pantry-done{background:var(--green);color:#fff;border:0;border-radius:11px;padding:10px 13px;font-size:13px;font-weight:700}
+.badge.check{background:#edf0f3;color:#58636d}
+.badge.soon{background:#fdf0dd;color:#956020}
+.quickbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom,0px));width:min(680px,calc(100% - 24px));border:1px solid #bdd4c4;border-radius:18px;background:rgba(251,255,251,.97);box-shadow:0 12px 30px #13271720;z-index:10;padding:11px 13px;backdrop-filter:blur(8px)}
+.quickbar[hidden]{display:none}
+.quickbar-inner{display:flex;gap:10px;align-items:center;justify-content:space-between}
+.quickbar-inner .numbers{display:flex;flex-direction:column;min-width:0}
+.quickbar-inner strong{font-size:14px;line-height:1.35}
+.quickbar-inner span{font-size:12px;color:var(--mute);line-height:1.5}
+.jump{white-space:nowrap;flex-shrink:0;background:var(--green);color:white;border:0;border-radius:12px;min-height:42px;padding:8px 14px;font-size:14px;font-weight:700}
+.needed{background:#f9faf7;padding:10px 12px;border-radius:11px;margin-top:12px;font-size:13px}
+.needed .st{font-weight:700;margin-bottom:5px}
+.needed ul{padding-left:18px!important;margin:0!important}
+.needed li{margin-bottom:4px!important}
+.needed .unknown{color:#667076}
+.needed .ready{color:#31724a}
+.needed .absent{color:#a65c24}
+.group-note{font-size:12px;color:var(--mute);margin:4px 0 8px}
+@media(min-width:800px){.quickbar{display:none}}
+@media(max-width:380px){.recipe{gap:9px;padding:11px 9px}.thumb{width:48px;height:48px}.badge{font-size:10px}.name{font-size:15px}}
+
+</style>
+</head>
+<body>
+<main>
+<header><div class="reset-row"><h1>🍳 冰箱有什麼？</h1><span class="beta">測試版 0.2</span></div><p>家裡有什麼，就點什麼。料理會馬上出現。</p></header>
+<section class="box" aria-label="選擇食材">
+<p class="step">選擇食材 · 可以複選</p>
+<div class="cats" id="cats" role="group" aria-label="食材分類"></div>
+<div class="foods" id="foods"></div>
+<div class="picked" id="picked" aria-live="polite"></div>
+<div class="pantry-control">
+  <button type="button" class="pantry-toggle" id="pantryToggle" aria-controls="pantryPanel" aria-expanded="false"><span>🧂 家裡有哪些調味料？</span><span class="pantry-state" id="pantryStatus">尚未確認</span><span id="pantryChevron" aria-hidden="true">⌄</span></button>
+  <div class="pantry-panel" id="pantryPanel" hidden>
+    <p class="pantry-desc">只勾選家裡確定有的調味料。按「確認」後，沒勾選的才會顯示為缺少；水不需選。</p>
+    <div class="pantry-foods" id="pantryFoods" role="group" aria-label="家裡有的調味料"></div>
+    <div class="pantry-actions"><button class="pantry-quick" type="button" id="pantryQuick">快速勾選油、鹽、醬油</button><button class="pantry-done" type="button" id="pantryDone">確認調味料</button></div>
+  </div>
+</div>
+<p class="subtle">找不到食材？ <button type="button" class="input-toggle" id="toggleInput">從全部食材搜尋</button></p>
+<div class="search-wrap" id="searchWrap"><input id="search" placeholder="例如：香菇、蛤蜊、馬鈴薯" autocomplete="off" list="foodSuggestions" aria-label="搜尋食材"><datalist id="foodSuggestions"></datalist><button id="addFood" type="button">選取</button></div>
+</section>
+<div class="resultheader"><h2>可以煮什麼？</h2><small id="summary" aria-live="polite"></small></div>
+<section id="results"></section>
+<p class="footer">免登入・點選即時更新・食材與調味料只儲存在這台裝置<br>食譜與調味需求為測試資料，仍須確認份量與食材狀況。<br>不會任意替換傳統料理的核心材料。</p>
+</main>
+<aside class="quickbar" id="quickbar" hidden aria-label="即時推薦結果"><div class="quickbar-inner"><div class="numbers"><strong id="quickSummary"></strong><span id="quickDetail"></span></div><button type="button" class="jump" id="jumpResults">看料理 ↓</button></div></aside>
+<dialog class="dialog" id="recipeDialog" aria-label="食譜詳情"><div class="dialogin" id="dialogContent"></div></dialog>
+<script>
+// 手工整理的示範食譜；不使用第三方食譜圖文，亦不需網路或 AI 服務。
+const GROUPS = [
+  {name:'常用',foods:['雞蛋','番茄','豆腐','洋蔥','高麗菜','豬肉片','雞肉','青蔥','蒜頭','白飯','馬鈴薯','紅蘿蔔']},
+  {name:'蔬菜',foods:['番茄','洋蔥','高麗菜','青江菜','空心菜','青椒','紅蘿蔔','馬鈴薯','絲瓜','香菇','青蔥','蒜頭','薑']},
+  {name:'肉類',foods:['豬肉片','雞肉','豬絞肉']},
+  {name:'蛋豆',foods:['雞蛋','豆腐','豆干']},
+  {name:'海鮮',foods:['蝦仁','蛤蜊','海帶芽']},
+  {name:'主食',foods:['白飯','麵條']},
+  {name:'特殊調味',foods:['味噌','咖哩塊','豆瓣醬','九層塔','麻油']}
+];
+// need：料理的必要主要食材。沒有列入 need 的基本調味料，會在詳情提醒確認。
+const RECIPES = [
+['番茄炒蛋','🍅',12,['番茄','雞蛋'],'食用油、鹽、少量糖（可省略）',['番茄切塊，雞蛋打散。','熱鍋放油，先將蛋炒至大致凝固後盛起。','番茄下鍋炒軟，可加少量水，再放回雞蛋拌勻調味。'],'番茄酸度不同，可依個人口味調整糖量。'],
+['蔥花煎蛋','🥚',10,['雞蛋','青蔥'],'食用油、鹽',['青蔥切碎，雞蛋打散，與鹽混合。','平底鍋放油，倒入蛋液。','中小火煎至底部凝固，翻面煎熟。'],'蛋液應完全凝固再食用。'],
+['洋蔥炒蛋','🧅',13,['洋蔥','雞蛋'],'食用油、鹽',['洋蔥切絲，雞蛋打散。','先將洋蔥炒軟，再倒入蛋液。','輕輕翻炒至雞蛋凝固，調味後起鍋。'],'洋蔥想要更甜，可以先多炒一會兒。'],
+['家常蒸蛋','🥚',18,['雞蛋'],'水、鹽、可選醬油',['雞蛋打散，加入約蛋液 1.5 倍的水和少量鹽。','過篩倒入耐熱容器，表面蓋耐熱蓋或鋁箔留小孔。','水滾後轉小火蒸至蛋液完全凝固。'],'蒸煮時間依容器深度及火力而異，以中心完全凝固為準。'],
+['豆腐蒸蛋','🍮',20,['豆腐','雞蛋'],'水、鹽、可選醬油',['嫩豆腐切小塊放入耐熱容器。','雞蛋加水和少量鹽打勻，倒在豆腐上。','以小火隔水蒸至蛋液完全凝固。'],'使用嫩豆腐口感較滑順，請確認容器可耐熱。'],
+['番茄蛋花湯','🥣',15,['番茄','雞蛋'],'水、鹽、少量食用油',['番茄切塊，加水煮至軟化。','轉小火後慢慢倒入打散的蛋液。','蛋花凝固後調味。'],'倒蛋液時不要劇烈攪拌，蛋花會比較漂亮。'],
+['番茄豆腐湯','🍲',15,['番茄','豆腐'],'水、鹽、少量食用油',['番茄切塊、豆腐切丁。','番茄略炒後加水煮開，再放入豆腐。','稍微煮滾，調味即可。'],'豆腐放入後輕攪，避免破碎。'],
+['海帶芽豆腐湯','🍵',12,['海帶芽','豆腐'],'水、鹽、少量醬油',['乾燥海帶芽依包裝指示泡發清洗，豆腐切丁。','清水煮開，放入海帶芽和豆腐。','煮熱後用鹽或少量醬油調味。'],'乾燥海帶芽泡發會膨脹，份量不宜放太多。'],
+['清炒高麗菜','🥬',10,['高麗菜'],'食用油、鹽',['高麗菜洗淨切成適口大小。','熱鍋下油，放高麗菜快速翻炒。','視需要加少量水，炒熟後加鹽。'],'較厚的菜梗可先下鍋，葉子後放。'],
+['蒜炒青江菜','🥬',10,['青江菜','蒜頭'],'食用油、鹽',['青江菜洗淨，蒜頭切末。','熱鍋爆香蒜末，放入青江菜。','炒至熟軟，加鹽調味。'],'菜梗與葉片厚薄不同，可分批下鍋。'],
+['蒜炒空心菜','🥬',10,['空心菜','蒜頭'],'食用油、鹽',['空心菜洗淨切段，蒜頭切末。','熱鍋爆香蒜末，先加入菜梗炒。','加入菜葉翻炒至熟，調味起鍋。'],'大火快炒有助於保留清脆口感。'],
+['洋蔥炒豬肉','🥩',18,['豬肉片','洋蔥'],'食用油、醬油、少量糖（可省略）',['豬肉片切適口大小，洋蔥切絲。','先將豬肉炒至變色，再加入洋蔥。','炒至豬肉熟透、洋蔥軟化，加入醬油調味。'],'豬肉需充分加熱至熟透。'],
+['高麗菜炒豬肉','🍳',18,['高麗菜','豬肉片'],'食用油、鹽、可選醬油',['高麗菜切片，豬肉片備妥。','熱鍋炒豬肉至變色，再下高麗菜。','視需要加少量水，炒至全熟再調味。'],'不要因肉片表面變色就認定已熟，較厚的肉片需繼續加熱。'],
+['蒜香雞肉','🍗',20,['雞肉','蒜頭'],'食用油、鹽、黑胡椒',['雞肉切成大小相近的塊，蒜頭切末。','熱鍋放油，將雞肉煎至表面上色。','加蒜末和少量水續煮，確認雞肉中心熟透後調味。'],'雞肉安全熟度建議以中心溫度達 74°C 確認，時間會因部位與厚度而異。'],
+['洋蔥炒雞肉','🍗',20,['雞肉','洋蔥'],'食用油、醬油、少量水',['雞肉切塊、洋蔥切絲。','先煎炒雞肉，再放洋蔥拌炒。','加少量水和醬油燜煮，確認雞肉完全熟透後起鍋。'],'雞肉中心應達 74°C；不要直接套用豬肉料理的加熱時間。'],
+['雞肉馬鈴薯燉煮','🍲',35,['雞肉','馬鈴薯','洋蔥'],'水、醬油、少量糖',['馬鈴薯切塊、洋蔥切絲，雞肉切適口大小。','雞肉略煎、加入洋蔥和馬鈴薯拌炒。','加水和醬油燉煮至馬鈴薯柔軟、雞肉完全熟透。'],'雞肉中心應達 74°C；燉煮時間依部位及塊度調整。'],
+['馬鈴薯燉豬肉','🍲',35,['豬肉片','馬鈴薯','洋蔥'],'水、醬油、少量糖',['馬鈴薯切塊、洋蔥切絲。','豬肉略炒後加入洋蔥、馬鈴薯。','加水和調味料燉至馬鈴薯柔軟且豬肉熟透。'],'這是使用豬肉片的家常版本，並非傳統封肉。'],
+['青椒炒豬肉','🫑',18,['青椒','豬肉片'],'食用油、醬油、少量鹽',['青椒去籽切絲，豬肉切絲。','熱鍋先將豬肉炒至變色。','加入青椒翻炒至食材熟透，少量醬油調味。'],'青椒喜歡脆口可以晚一點下鍋。'],
+['豬肉炒蛋','🍳',15,['豬肉片','雞蛋'],'食用油、鹽、可選醬油',['豬肉切小片，雞蛋打散。','先炒熟豬肉盛起，再炒雞蛋。','將豬肉放回鍋中拌炒並確認熟透。'],'先炒肉再炒蛋，比較容易控制兩者熟度。'],
+['雞肉蛋炒飯','🍚',20,['雞肉','白飯','雞蛋'],'食用油、鹽、少量醬油',['雞肉切成小塊並先炒至完全熟透。','加入打散雞蛋炒至凝固，再加入白飯。','翻炒至飯粒均勻受熱後調味。'],'使用妥善冷藏的熟飯，充分重新加熱；雞肉中心需達 74°C。'],
+['蛋炒飯','🍚',12,['白飯','雞蛋'],'食用油、鹽、可選醬油',['雞蛋打散，白飯先撥鬆。','熱鍋下油，加入雞蛋炒至半凝固。','倒入白飯炒散、充分加熱並調味。'],'冷藏飯應妥善保存並徹底加熱。'],
+['高麗菜蛋炒飯','🍚',15,['白飯','高麗菜','雞蛋'],'食用油、鹽、少量醬油',['高麗菜切細，雞蛋打散。','先炒高麗菜，再加入蛋液炒凝固。','加入白飯拌炒至熱透並調味。'],'高麗菜切細會比較快熟。'],
+['番茄燴豆腐','🍅',15,['番茄','豆腐'],'食用油、鹽、少量醬油',['番茄與豆腐切塊。','熱鍋先炒番茄至出汁。','放入豆腐與少量水，小火煮熱後調味。'],'嫩豆腐容易碎，輕輕翻動即可。'],
+['香煎豆腐','🧈',15,['豆腐'],'食用油、少量醬油',['板豆腐瀝乾水分、切厚片。','鍋中放油，中小火將兩面煎至金黃。','淋少量醬油或搭配喜歡的沾醬。'],'板豆腐適合香煎；嫩豆腐較容易碎。'],
+['蝦仁炒蛋','🦐',15,['蝦仁','雞蛋'],'食用油、鹽',['蝦仁去除腸泥，雞蛋打散。','先將蝦仁炒至熟透，盛起。','雞蛋炒至凝固，放回蝦仁拌勻。'],'蝦仁需充分煮熟；依大小調整時間。'],
+['蝦仁蛋炒飯','🍚',18,['蝦仁','白飯','雞蛋'],'食用油、鹽、少量醬油',['蝦仁處理乾淨、炒熟備用。','蛋液下鍋炒至凝固，加入白飯。','放回蝦仁炒至全鍋熱透並調味。'],'剩飯應妥善冷藏並徹底加熱。'],
+['蒜香蝦仁','🦐',15,['蝦仁','蒜頭'],'食用油、鹽、黑胡椒',['蝦仁去腸泥，蒜頭切末。','蒜末以中小火炒香，加入蝦仁。','將蝦仁炒至熟透，少量鹽與胡椒調味。'],'蒜末避免大火炒焦；海鮮需充分熟透。'],
+['蛤蜊清湯','🍵',15,['蛤蜊'],'水、鹽（依口味選用）、可選薑絲',['蛤蜊清洗、吐沙。','煮開一鍋水，加入蛤蜊加熱。','煮至蛤蜊開口並熟透，調味即可。'],'烹煮後仍未開口的蛤蜊應丟棄。'],
+['蛤蜊絲瓜','🥒',18,['蛤蜊','絲瓜'],'食用油、水、鹽、可選薑絲',['蛤蜊洗淨吐沙，絲瓜去皮切塊。','絲瓜放入鍋中略炒，加入少量水燜煮。','加入蛤蜊煮至開口且熟透，調味。'],'烹煮後仍未開口的蛤蜊應丟棄。'],
+['馬鈴薯煎餅','🥔',20,['馬鈴薯','雞蛋'],'食用油、鹽、少量麵粉可選（不加時較鬆散）',['馬鈴薯刨細絲並擠去多餘水分。','加入雞蛋和鹽拌勻。','小份下鍋，以中小火煎至兩面金黃且中心熟透。'],'馬鈴薯切細可縮短煎熟時間；若沒有麵粉，餅較容易散開。'],
+['紅蘿蔔煎蛋','🥕',12,['紅蘿蔔','雞蛋'],'食用油、鹽',['紅蘿蔔刨細絲，雞蛋打散。','先把紅蘿蔔略炒軟。','倒入蛋液煎至完全凝固。'],'紅蘿蔔切得越細，口感越柔軟。'],
+['香菇炒蛋','🍄',15,['香菇','雞蛋'],'食用油、鹽',['香菇洗淨切薄片，雞蛋打散。','先炒香菇至熟軟。','加入雞蛋炒至全熟，少量鹽調味。'],'若是乾香菇，應先依包裝指示泡發。'],
+['香菇雞湯','🍲',35,['雞肉','香菇'],'水、鹽、可選薑片',['香菇處理乾淨，雞肉切塊。','雞肉與香菇放入鍋中加水煮開。','轉小火煮至雞肉熟透、湯有香味，再調味。'],'雞肉中心溫度需達 74°C，時間隨部位和大小調整。'],
+['青椒炒雞肉','🫑',20,['青椒','雞肉'],'食用油、鹽、可選醬油',['雞肉切小塊、青椒切絲。','先炒雞肉至接近熟透。','加入青椒炒勻，繼續加熱至雞肉中心達 74°C。'],'雞肉與豬肉的加熱需求不同，不能單純替換名稱。'],
+['咖哩雞肉','🍛',35,['雞肉','馬鈴薯','洋蔥','咖哩塊'],'水、少量食用油',['雞肉、馬鈴薯和洋蔥切塊。','先炒雞肉和洋蔥，再加入馬鈴薯與水。','燉至食材熟透，依咖哩塊包裝指示加入咖哩塊並拌勻。'],'咖哩塊是必要調味，未選取不會列為主要食材齊全。雞肉中心需達 74°C。'],
+['味噌豆腐湯','🥣',12,['味噌','豆腐'],'水、可選海帶芽',['豆腐切丁，水加熱至接近沸騰。','加入豆腐煮熱。','關小火，先將味噌用少量湯汁化開後拌回鍋中。'],'味噌是這道料理的核心調味，不能假設家裡一定有。'],
+['家常麻婆豆腐','🍲',20,['豆腐','豬絞肉','豆瓣醬'],'食用油、蒜頭可選、醬油、少量水',['豆腐切塊，豬絞肉備好。','將豬絞肉炒至熟透，再加入豆瓣醬炒香。','加少量水與豆腐，煮熱後適量調味。'],'這是簡化家常版本；豆瓣醬影響主要風味，缺少時不列為可直接做。'],
+['青椒炒豆干','🫑',13,['青椒','豆干'],'食用油、少量醬油',['青椒切絲、豆干切條。','先把豆干炒至表面微金黃。','加入青椒繼續炒熟，再用醬油調味。'],'豆干本身可能已有鹹味，調味先少放。'],
+['蒜香炒麵','🍜',18,['麵條','蒜頭'],'食用油、醬油、鹽',['麵條依包裝指示煮熟瀝乾。','蒜頭切末，鍋中放油小火炒香。','加入麵條、少量醬油與水快速拌炒。'],'麵條種類不同，請以包裝的煮熟時間為準。']
+];
+// 調味料不預設「有」：未確認與確定缺少是不同狀態。
+const PANTRY=['食用油','鹽','醬油','糖','黑胡椒','麵粉'];
+// 必要調味料明確列出；陣列內為「任選其中一樣」的替代調味。
+// 特殊調味（味噌、咖哩塊、豆瓣醬等）屬於菜色核心，仍列在 RECIPES 的主要食材。
+const PANTRY_RULES={
+ '番茄炒蛋':['食用油','鹽'], '蔥花煎蛋':['食用油','鹽'], '洋蔥炒蛋':['食用油','鹽'],
+ '家常蒸蛋':['鹽'], '豆腐蒸蛋':['鹽'], '番茄蛋花湯':['鹽'], '番茄豆腐湯':['鹽'],
+ '海帶芽豆腐湯':[['鹽','醬油']], '清炒高麗菜':['食用油','鹽'],
+ '蒜炒青江菜':['食用油','鹽'], '蒜炒空心菜':['食用油','鹽'],
+ '洋蔥炒豬肉':['食用油','醬油'], '高麗菜炒豬肉':['食用油','鹽'],
+ '蒜香雞肉':['食用油','鹽'], '洋蔥炒雞肉':['食用油','醬油'],
+ '雞肉馬鈴薯燉煮':['醬油'], '馬鈴薯燉豬肉':['醬油'],
+ '青椒炒豬肉':['食用油','醬油'], '豬肉炒蛋':['食用油','鹽'],
+ '雞肉蛋炒飯':['食用油','鹽'], '蛋炒飯':['食用油','鹽'],
+ '高麗菜蛋炒飯':['食用油','鹽'], '番茄燴豆腐':['食用油','鹽'],
+ '香煎豆腐':['食用油'], '蝦仁炒蛋':['食用油','鹽'],
+ '蝦仁蛋炒飯':['食用油','鹽'], '蒜香蝦仁':['食用油','鹽'],
+ '蛤蜊清湯':[], '蛤蜊絲瓜':['食用油'], '馬鈴薯煎餅':['食用油','鹽'],
+ '紅蘿蔔煎蛋':['食用油','鹽'], '香菇炒蛋':['食用油','鹽'],
+ '香菇雞湯':['鹽'], '青椒炒雞肉':['食用油','鹽'],
+ '咖哩雞肉':['食用油'], '味噌豆腐湯':[],
+ '家常麻婆豆腐':['食用油','醬油'], '青椒炒豆干':['食用油','醬油'],
+ '蒜香炒麵':['食用油','醬油']
+};
+const allFood=[...new Set(GROUPS.flatMap(g=>g.foods))];
+const keys={picked:'fridge-mvp-picked-v01',pantry:'fridge-mvp-pantry-v02',confirmed:'fridge-mvp-pantry-confirmed-v02'};
+const $=id=>document.getElementById(id);
+const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function savedSet(key,allow){try{let list=JSON.parse(localStorage.getItem(key)||'[]');return new Set(Array.isArray(list)?list.filter(x=>allow.includes(x)):[])}catch{return new Set()}}
+let picked=savedSet(keys.picked,allFood),pantry=savedSet(keys.pantry,PANTRY);
+let pantryConfirmed=false;try{pantryConfirmed=localStorage.getItem(keys.confirmed)==='true'}catch{}
+let active='常用',expanded=false;
+function save(){try{localStorage.setItem(keys.picked,JSON.stringify([...picked]));localStorage.setItem(keys.pantry,JSON.stringify([...pantry]));localStorage.setItem(keys.confirmed,String(pantryConfirmed))}catch{}}
+function toggle(food){if(picked.has(food))picked.delete(food);else picked.add(food);save();render()}
+function formatPantry(x){return Array.isArray(x)?x.join('／')+'（任一）':x}
+function hasPantry(x){return Array.isArray(x)?x.some(y=>pantry.has(y)):pantry.has(x)}
+function classifyRecipe(r,i){
+ const missing=r[3].filter(f=>!picked.has(f)),matched=r[3].length-missing.length;
+ const cond=(PANTRY_RULES[r[0]]||[]).filter(x=>!hasPantry(x));
+ return {i,matched,missing,cond,ready:missing.length===0&&cond.length===0,pantryRank:cond.length===0?2:pantryConfirmed?0:1};
+}
+function makeCard(o){
+ const r=RECIPES[o.i],exact=o.missing.length===0;
+ let label='',cls='',detail='';
+ if(exact&&o.cond.length===0){label='現在能煮';cls='ok';detail='必要材料已確認'}
+ else if(exact&&!pantryConfirmed){label='調味待確認';cls='check';detail='待確認：'+o.cond.map(formatPantry).join('、')}
+ else if(exact){label=`缺調味 ${o.cond.length} 樣`;cls='miss';detail='缺：'+o.cond.map(formatPantry).join('、')}
+ else{label='缺 1 主食材';cls='soon';detail='還缺：'+o.missing.join('、')+(o.cond.length?' · 調味另需確認':'')}
+ return `<button type="button" class="recipe" data-recipe="${o.i}" aria-label="${escapeHTML(r[0])}，${escapeHTML(label)}"><span class="thumb" aria-hidden="true">${r[1]}</span><span class="rtext"><span class="name">${escapeHTML(r[0])}</span><div class="meta">約 ${r[2]} 分鐘 · 用到 ${o.matched} 種已選食材</div><div class="meta">${escapeHTML(detail)}</div></span><span class="badge ${cls}">${escapeHTML(label)}</span><span class="arrow" aria-hidden="true">›</span></button>`
+}
+function render(){
+ $('cats').innerHTML=GROUPS.map(g=>`<button type="button" class="cat ${g.name===active?'on':''}" data-group="${g.name}" aria-pressed="${g.name===active}">${g.name}</button>`).join('');
+ $('foods').innerHTML=GROUPS.find(g=>g.name===active).foods.map(f=>`<button type="button" class="food ${picked.has(f)?'on':''}" data-food="${f}" aria-pressed="${picked.has(f)}">${f}</button>`).join('');
+ $('picked').innerHTML=picked.size?`<span class="mini">已選 ${picked.size} 種</span>${[...picked].map(f=>`<button class="picktag" data-food="${f}" aria-label="移除${f}">${f} ×</button>`).join('')}<button class="clear" id="clear" type="button">清空</button>`:`<span class="hint">點一下加入食材，再點一次取消</span>`;
+ $('pantryFoods').innerHTML=PANTRY.map(s=>`<button type="button" class="pantry-food ${pantry.has(s)?'on':''}" data-pantry="${s}" aria-pressed="${pantry.has(s)}">${pantry.has(s)?'✓ ':''}${s}</button>`).join('');
+ $('pantryStatus').textContent=pantryConfirmed?`已確認 ${pantry.size} 種`:(pantry.size?`已選 ${pantry.size} 種・未確認`:'尚未確認');
+ $('pantryDone').textContent=pantryConfirmed?'更新確認':'確認調味料';
+ const available=[],oneAway=[];
+ if(picked.size){RECIPES.forEach((r,i)=>{const o=classifyRecipe(r,i);if(o.missing.length===0)available.push(o);else if(o.missing.length===1&&o.matched>=1)oneAway.push(o)})}
+ available.sort((a,b)=>b.pantryRank-a.pantryRank||b.matched-a.matched||a.cond.length-b.cond.length||RECIPES[a.i][2]-RECIPES[b.i][2]);
+ oneAway.sort((a,b)=>b.matched-a.matched||a.cond.length-b.cond.length||RECIPES[a.i][2]-RECIPES[b.i][2]);
+ const readyCount=available.filter(o=>o.ready).length;
+ $('summary').textContent=picked.size?`主要食材齊 ${available.length} 道 · 確認可煮 ${readyCount} 道`:'選食材後立即更新';
+ $('quickbar').hidden=!picked.size;
+ $('quickSummary').textContent=`已選 ${picked.size} 種 · 主要食材齊 ${available.length} 道`;
+ $('quickDetail').textContent=pantryConfirmed?`必要調味料也齊全：${readyCount} 道`:`已確認材料可做：${readyCount} 道 · 調味料可另確認`;
+ if(!picked.size){$('results').innerHTML='<div class="box empty">👆 先點選一種食材，料理會立即顯示在這裡。</div>';return}
+ const cards=arr=>arr.slice(0,expanded?arr.length:6).map(makeCard).join('');
+ let html=`<div class="group"><strong>✓ 主要食材齊全</strong><span class="count">${available.length} 道</span></div><p class="group-note">「現在能煮」表示已選食材與必要調味都齊；尚未確認的調味不會當作已有。</p><div class="cards">${available.length?cards(available):'<div class="box empty">還沒有主食材齊全的料理，繼續點選食材看看。</div>'}</div>`;
+ if(oneAway.length)html+=`<div class="group"><strong>＋ 只差 1 種主要食材</strong><span class="count">${oneAway.length} 道</span></div><div class="cards">${cards(oneAway)}</div>`;
+ if(available.length>6||oneAway.length>6)html+=`<button class="more" type="button" id="more">${expanded?'收起部分結果':'展開更多料理'}</button>`;
+ $('results').innerHTML=html;
+}
+function openRecipe(i){
+ const r=RECIPES[i];if(!r)return;
+ const o=classifyRecipe(r,i);
+ const pantryList=(PANTRY_RULES[r[0]]||[]).map(s=>`<li class="${hasPantry(s)?'ready':pantryConfirmed?'absent':'unknown'}">${hasPantry(s)?'✓ 已有：':pantryConfirmed?'＋ 缺少：':'？ 未確認：'}${escapeHTML(formatPantry(s))}</li>`).join('');
+ $('dialogContent').innerHTML=`<div class="dialog-top"><span class="thumb">${r[1]}</span><div style="flex:1"><h2 class="d-name">${escapeHTML(r[0])}</h2><p class="d-meta">準備與料理約 ${r[2]} 分鐘（示意）</p></div><button class="close" id="closeDialog" aria-label="關閉">×</button></div><div class="d-section"><h3>主要食材</h3><ul>${r[3].map(f=>`<li class="${picked.has(f)?'inlineok':'missing'}">${picked.has(f)?'✓ 已選：':'＋ 還缺：'}${escapeHTML(f)}</li>`).join('')}</ul><div class="needed"><div class="st">🧂 必要調味料</div>${pantryList?`<ul>${pantryList}</ul>`:'<span class="ready">這道料理沒有另外必備的基本調味料。</span>'}<p class="mini" style="margin-top:7px">其他調味與配料：${escapeHTML(r[4])}</p></div><p class="mini" style="margin-top:9px">主要食材與調味有了，也請確認份量足夠。</p></div><div class="d-section"><h3>簡單做法</h3><ol>${r[5].map(s=>`<li>${escapeHTML(s)}</li>`).join('')}</ol></div><div class="tip"><strong>給料理新手的小提醒</strong><br>${escapeHTML(r[6])}</div>${o.missing.length?`<p class="mini" style="margin-top:14px">還缺主要食材：${escapeHTML(o.missing.join('、'))}。不會自行把傳統料理的核心材料替換掉。</p>`:''}`;
+ $('recipeDialog').showModal();$('closeDialog').addEventListener('click',()=>$('recipeDialog').close());
+}
+$('cats').addEventListener('click',e=>{const b=e.target.closest('[data-group]');if(b){active=b.dataset.group;render()}});
+$('foods').addEventListener('click',e=>{const b=e.target.closest('[data-food]');if(b)toggle(b.dataset.food)});
+$('picked').addEventListener('click',e=>{const b=e.target.closest('[data-food]');if(b)toggle(b.dataset.food);if(e.target.id==='clear'){picked.clear();save();render()}});
+$('results').addEventListener('click',e=>{const b=e.target.closest('[data-recipe]');if(b)openRecipe(Number(b.dataset.recipe));if(e.target.id==='more'){expanded=!expanded;render()}});
+$('recipeDialog').addEventListener('click',e=>{if(e.target===$('recipeDialog'))$('recipeDialog').close()});
+$('pantryToggle').addEventListener('click',()=>{const show=$('pantryPanel').hidden;$('pantryPanel').hidden=!show;$('pantryToggle').setAttribute('aria-expanded',String(show));$('pantryChevron').textContent=show?'⌃':'⌄'});
+$('pantryFoods').addEventListener('click',e=>{const b=e.target.closest('[data-pantry]');if(!b)return;const s=b.dataset.pantry;if(pantry.has(s))pantry.delete(s);else pantry.add(s);pantryConfirmed=false;save();render()});
+$('pantryQuick').addEventListener('click',()=>{['食用油','鹽','醬油'].forEach(s=>pantry.add(s));pantryConfirmed=false;save();render()});
+$('pantryDone').addEventListener('click',()=>{pantryConfirmed=true;$('pantryPanel').hidden=true;$('pantryToggle').setAttribute('aria-expanded','false');$('pantryChevron').textContent='⌄';save();render()});
+$('jumpResults').addEventListener('click',()=>$('results').scrollIntoView({behavior:'smooth',block:'start'}));
+$('toggleInput').addEventListener('click',()=>{$('searchWrap').classList.toggle('visible');if($('searchWrap').classList.contains('visible'))$('search').focus()});
+$('foodSuggestions').innerHTML=allFood.map(x=>`<option value="${x}">`).join('');
+function searchAndAdd(){let v=$('search').value.trim();if(!v)return;let found=allFood.find(f=>f===v);if(found){if(!picked.has(found))toggle(found);$('search').value='';return}const close=allFood.filter(f=>f.includes(v));if(close.length===1){if(!picked.has(close[0]))toggle(close[0]);$('search').value='';return}alert('這個測試版目前只支援清單內的食材。你可以從下拉建議選取。')}
+$('addFood').addEventListener('click',searchAndAdd);$('search').addEventListener('keydown',e=>{if(e.key==='Enter')searchAndAdd()});
+// 開發自我檢查：每道食譜都必須定義調味規則，避免漏標後錯誤顯示「現在能煮」。
+if(RECIPES.some(r=>!(r[0] in PANTRY_RULES)))console.warn('有食譜尚未定義必要調味料規則');
+render();
+</script>
+</body>
+</html>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#fff3db">
-<title>冰箱有什麼？｜清新廚房 V0.5</title>
+<title>冰箱有什麼？｜清新廚房 V0.6</title>
 <meta name="description" content="免登入，點選家裡現有食材，立即找到適合的家常料理。">
 <style>
 /* V0.3 - 清新廚房 / editorial kitchen */
@@ -56,7 +56,7 @@ h1,h2,h3,p{margin:0}main{max-width:960px;padding:24px 24px 110px;margin:auto}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.recipe,.food{transition:none}}
 
 
-/* V0.5 即時推薦分層，偏好只在符合料理較多時出現 */
+/* V0.6 即時推薦分層，偏好只在符合料理較多時出現 */
 .v05-preferences,.v05-types{display:flex;flex-wrap:wrap;gap:7px;margin:13px 0 14px}
 .v05-chip,.v05-type{border:1px solid #e5dccf;background:#fffdf8;border-radius:100px;color:#657264;padding:8px 12px;font-size:12px;font-weight:700;min-height:39px}
 .v05-chip.on,.v05-type.on{background:#334b3b;border-color:#334b3b;color:#fff}
@@ -70,7 +70,7 @@ h1,h2,h3,p{margin:0}main{max-width:960px;padding:24px 24px 110px;margin:auto}
 </head>
 <body>
 <main>
-<header class="hero"><div class="hero-copy"><div class="eyebrow"><span class="eyebrow-dot"></span> THE LITTLE KITCHEN</div><div class="reset-row"><h1>冰箱有什麼<span class="punct">？</span></h1><span class="beta">V0.5</span></div><p>點選食材，馬上找到今天能煮的菜。</p></div><div class="hero-art" aria-hidden="true"><span class="hero-leaf">✳</span><div class="hero-plate"><span>🍅</span><span>🥬</span><span>🥚</span></div></div></header>
+<header class="hero"><div class="hero-copy"><div class="eyebrow"><span class="eyebrow-dot"></span> THE LITTLE KITCHEN</div><div class="reset-row"><h1>冰箱有什麼<span class="punct">？</span></h1><span class="beta">V0.6</span></div><p>點選食材，馬上找到今天能煮的菜。</p></div><div class="hero-art" aria-hidden="true"><span class="hero-leaf">✳</span><div class="hero-plate"><span>🍅</span><span>🥬</span><span>🥚</span></div></div></header>
 <section class="box" aria-label="選擇食材">
 <p class="step">看看冰箱裡有什麼 <span style="font-size:11px;font-weight:500;color:#8f9488">· 可複選</span></p>
 <div class="cats" id="cats" role="group" aria-label="食材分類"></div>
@@ -96,9 +96,9 @@ h1,h2,h3,p{margin:0}main{max-width:960px;padding:24px 24px 110px;margin:auto}
 <script>
 // 手工整理的示範食譜；不使用第三方食譜圖文，亦不需網路或 AI 服務。
 const GROUPS = [
-  {name:'常用',foods:['雞蛋','番茄','豆腐','洋蔥','高麗菜','豬肉片','雞肉','青蔥','蒜頭','白飯','馬鈴薯','紅蘿蔔']},
-  {name:'蔬菜',foods:['番茄','洋蔥','高麗菜','青江菜','空心菜','青椒','紅蘿蔔','馬鈴薯','絲瓜','香菇','青蔥','蒜頭','薑']},
-  {name:'肉類',foods:['豬肉片','雞肉','豬絞肉']},
+  {name:'常用',foods:['雞蛋','番茄','豆腐','洋蔥','高麗菜','豬肉片','雞胸肉','雞腿肉','青蔥','蒜頭','白飯','馬鈴薯','紅蘿蔔']},
+  {name:'蔬菜',foods:['番茄','洋蔥','高麗菜','青江菜','空心菜','青椒','紅蘿蔔','馬鈴薯','絲瓜','節瓜','菠菜','香菇','蘑菇','青蔥','蒜頭','薑']},
+  {name:'肉類',foods:['豬肉片','雞胸肉','雞腿肉','雞肉','豬絞肉']},
   {name:'蛋豆',foods:['雞蛋','豆腐','豆干']},
   {name:'海鮮',foods:['蝦仁','蛤蜊','海帶芽']},
   {name:'主食',foods:['白飯','麵條']},
@@ -178,14 +178,14 @@ function savedSet(key,allow){try{let list=JSON.parse(localStorage.getItem(key)||
 let picked=savedSet(keys.picked,allFood),pantry=savedSet(keys.pantry,PANTRY);
 let pantryConfirmed=false;try{pantryConfirmed=localStorage.getItem(keys.confirmed)==='true'}catch{}
 const GROUP_ICONS={'常用':'✨','蔬菜':'🥬','肉類':'🥩','蛋豆':'🥚','海鮮':'🦐','主食':'🍚','特殊調味':'🧂'};
-const FOOD_ICONS={'雞蛋':'🥚','番茄':'🍅','豆腐':'◻️','洋蔥':'🧅','高麗菜':'🥬','豬肉片':'🥩','雞肉':'🍗','青蔥':'🌱','蒜頭':'🧄','白飯':'🍚','馬鈴薯':'🥔','紅蘿蔔':'🥕','青江菜':'🥬','空心菜':'🥬','青椒':'🫑','絲瓜':'🥒','香菇':'🍄','薑':'🫚','豬絞肉':'🥩','豆干':'🫘','蝦仁':'🦐','蛤蜊':'🐚','海帶芽':'🌿','麵條':'🍜','味噌':'🥣','咖哩塊':'🍛','豆瓣醬':'🌶️','九層塔':'🌱','麻油':'🫙'};
+const FOOD_ICONS={'雞蛋':'🥚','番茄':'🍅','豆腐':'◻️','洋蔥':'🧅','高麗菜':'🥬','豬肉片':'🥩','雞肉':'🍗','青蔥':'🌱','蒜頭':'🧄','白飯':'🍚','馬鈴薯':'🥔','紅蘿蔔':'🥕','菠菜':'🥬','節瓜':'🥒','蘑菇':'🍄','雞胸肉':'🍗','雞腿肉':'🍗','青江菜':'🥬','空心菜':'🥬','青椒':'🫑','絲瓜':'🥒','香菇':'🍄','薑':'🫚','豬絞肉':'🥩','豆干':'🫘','蝦仁':'🦐','蛤蜊':'🐚','海帶芽':'🌿','麵條':'🍜','味噌':'🥣','咖哩塊':'🍛','豆瓣醬':'🌶️','九層塔':'🌱','麻油':'🫙'};
 let active='常用',expanded=false;
 function save(){try{localStorage.setItem(keys.picked,JSON.stringify([...picked]));localStorage.setItem(keys.pantry,JSON.stringify([...pantry]));localStorage.setItem(keys.confirmed,String(pantryConfirmed))}catch{}}
 function toggle(food){if(picked.has(food))picked.delete(food);else picked.add(food);expanded=false;expandedNearV05=false;categoryFilterV05='all';save();render()}
 function formatPantry(x){return Array.isArray(x)?x.join('／')+'（任一）':x}
 function hasPantry(x){return Array.isArray(x)?x.some(y=>pantry.has(y)):pantry.has(x)}
 function classifyRecipe(r,i){
- const missing=r[3].filter(f=>!picked.has(f)),matched=r[3].length-missing.length;
+ const missing=r[3].filter(f=>!hasIngredientV06(f)),matched=r[3].length-missing.length;
  const cond=(PANTRY_RULES[r[0]]||[]).filter(x=>!hasPantry(x));
  return {i,matched,missing,cond,ready:missing.length===0&&cond.length===0,pantryRank:cond.length===0?2:pantryConfirmed?0:1};
 }
@@ -199,7 +199,7 @@ function makeCard(o){
  return `<button type="button" class="recipe" data-recipe="${o.i}" aria-label="${escapeHTML(r[0])}，${escapeHTML(label)}"><span class="thumb" aria-hidden="true">${r[1]}</span><span class="rtext"><span class="name">${escapeHTML(r[0])}</span><div class="meta">約 ${r[2]} 分鐘 · 用到 ${o.matched} 種已選食材</div><div class="meta">${escapeHTML(detail)}</div></span><span class="badge ${cls}">${escapeHTML(label)}</span><span class="arrow" aria-hidden="true">›</span></button>`
 }
 
-/* V0.5 精選推薦：只依已存食譜計算，不呼叫 AI，資料卡片仍沿用原介面 */
+/* V0.6 精選推薦：只依已存食譜計算，不呼叫 AI，資料卡片仍沿用原介面 */
 const CATEGORY_GROUPS_V05={"main":["洋蔥炒豬肉","高麗菜炒豬肉","蒜香雞肉","洋蔥炒雞肉","雞肉馬鈴薯燉煮","馬鈴薯燉豬肉","青椒炒豬肉","豬肉炒蛋","蒜香蝦仁","青椒炒雞肉","咖哩雞肉","家常麻婆豆腐","洋蔥炒蝦仁","肉末燴豆腐","洋蔥肉末炒蛋"],"soup":["番茄蛋花湯","番茄豆腐湯","海帶芽豆腐湯","蛤蜊清湯","香菇雞湯","味噌豆腐湯","高麗菜蛋花湯","青江菜豆腐湯","薑絲雞湯"],"staple":["雞肉蛋炒飯","蛋炒飯","高麗菜蛋炒飯","蝦仁蛋炒飯","蒜香炒麵","番茄蛋炒飯","高麗菜雞肉炒飯","番茄雞肉燴飯"],"side":["番茄炒蛋","蔥花煎蛋","洋蔥炒蛋","家常蒸蛋","豆腐蒸蛋","清炒高麗菜","蒜炒青江菜","蒜炒空心菜","番茄燴豆腐","香煎豆腐","蝦仁炒蛋","蛤蜊絲瓜","馬鈴薯煎餅","紅蘿蔔煎蛋","香菇炒蛋","青椒炒豆干","水煮蛋","荷包蛋","蒜香炒高麗菜","香菇燴豆腐","蒜炒香菇","絲瓜炒蛋","青椒炒蛋","九層塔煎蛋","蒜香炒豆干"]};
 const CATEGORY_LABELS_V05={main:'主菜',side:'家常菜',soup:'湯品',staple:'主食'};
 const HARD_V05=new Set(["雞肉蛋炒飯","蝦仁蛋炒飯","家常麻婆豆腐","洋蔥肉末炒蛋","高麗菜雞肉炒飯","番茄雞肉燴飯"]);
@@ -311,7 +311,7 @@ function openRecipe(i){
  const r=RECIPES[i];if(!r)return;
  const o=classifyRecipe(r,i);
  const pantryList=(PANTRY_RULES[r[0]]||[]).map(s=>`<li class="${hasPantry(s)?'ready':pantryConfirmed?'absent':'unknown'}">${hasPantry(s)?'✓ 已有：':pantryConfirmed?'＋ 缺少：':'？ 未確認：'}${escapeHTML(formatPantry(s))}</li>`).join('');
- $('dialogContent').innerHTML=`<div class="dialog-top"><span class="thumb">${r[1]}</span><div style="flex:1"><h2 class="d-name">${escapeHTML(r[0])}</h2><p class="d-meta">準備與料理約 ${r[2]} 分鐘（示意）</p></div><button class="close" id="closeDialog" aria-label="關閉">×</button></div><div class="d-section"><h3>主要食材</h3><ul>${r[3].map(f=>`<li class="${picked.has(f)?'inlineok':'missing'}">${picked.has(f)?'✓ 已選：':'＋ 還缺：'}${escapeHTML(f)}</li>`).join('')}</ul><div class="needed"><div class="st">🧂 必要調味料</div>${pantryList?`<ul>${pantryList}</ul>`:'<span class="ready">這道料理沒有另外必備的基本調味料。</span>'}<p class="mini" style="margin-top:7px">其他調味與配料：${escapeHTML(r[4])}</p></div><p class="mini" style="margin-top:9px">主要食材與調味有了，也請確認份量足夠。</p></div><div class="d-section"><h3>簡單做法</h3><ol>${r[5].map(s=>`<li>${escapeHTML(s)}</li>`).join('')}</ol></div><div class="tip"><strong>給料理新手的小提醒</strong><br>${escapeHTML(r[6])}</div>${o.missing.length?`<p class="mini" style="margin-top:14px">還缺主要食材：${escapeHTML(o.missing.join('、'))}。不會自行把傳統料理的核心材料替換掉。</p>`:''}`;
+ $('dialogContent').innerHTML=`<div class="dialog-top"><span class="thumb">${r[1]}</span><div style="flex:1"><h2 class="d-name">${escapeHTML(r[0])}</h2><p class="d-meta">準備與料理約 ${r[2]} 分鐘（示意）</p></div><button class="close" id="closeDialog" aria-label="關閉">×</button></div><div class="d-section"><h3>主要食材</h3><ul>${r[3].map(f=>`<li class="${hasIngredientV06(f)?'inlineok':'missing'}">${hasIngredientV06(f)?'✓ 已選：':'＋ 還缺：'}${escapeHTML(f==='雞肉'&&hasIngredientV06(f)?chosenChickenLabelV06():f)}</li>`).join('')}</ul><div class="needed"><div class="st">🧂 必要調味料</div>${pantryList?`<ul>${pantryList}</ul>`:'<span class="ready">這道料理沒有另外必備的基本調味料。</span>'}<p class="mini" style="margin-top:7px">其他調味與配料：${escapeHTML(r[4])}</p></div><p class="mini" style="margin-top:9px">主要食材與調味有了，也請確認份量足夠。</p></div><div class="d-section"><h3>簡單做法</h3><ol>${r[5].map(s=>`<li>${escapeHTML(s)}</li>`).join('')}</ol></div><div class="tip"><strong>給料理新手的小提醒</strong><br>${escapeHTML(r[6])}</div>${o.missing.length?`<p class="mini" style="margin-top:14px">還缺主要食材：${escapeHTML(o.missing.join('、'))}。不會自行把傳統料理的核心材料替換掉。</p>`:''}`;
  $('recipeDialog').showModal();$('closeDialog').addEventListener('click',()=>$('recipeDialog').close());
 }
 $('cats').addEventListener('click',e=>{const b=e.target.closest('[data-group]');if(b){active=b.dataset.group;render()}});
@@ -337,7 +337,7 @@ $('addFood').addEventListener('click',searchAndAdd);$('search').addEventListener
 // 開發自我檢查：每道食譜都必須定義調味規則，避免漏標後錯誤顯示「現在能煮」。
 if(RECIPES.some(r=>!(r[0] in PANTRY_RULES)))console.warn('有食譜尚未定義必要調味料規則');
 
-// V0.5 食譜品質加強：沿用原本的操作介面、分類及安全篩選規則。
+// V0.6 食譜品質加強：沿用原本的操作介面、分類及安全篩選規則。
 const EXTRA_RECIPES_V04=[
  ['水煮蛋','🥚',15,['雞蛋'],'水；鹽可省略',['雞蛋先放入鍋中，加冷水蓋過雞蛋約 2 公分。','開中火煮至水滾後轉小火，再煮約 10～12 分鐘。','撈出放涼水冷卻，剝殼後確認蛋黃和蛋白均已凝固。'],'從冷水開始計時容易混淆：上述 10～12 分鐘是水滾後的時間，依蛋大小調整。'],
  ['荷包蛋','🍳',8,['雞蛋'],'食用油、可選鹽',['平底鍋加約 1 茶匙油，以中小火預熱。','將雞蛋打入鍋中，煎約 2～3 分鐘。','小心翻面再煎約 2～3 分鐘，直到蛋白與蛋黃都凝固。'],'若不易翻面，可加少量水蓋鍋燜熟；油溫過高容易焦。'],
@@ -459,7 +459,7 @@ openRecipe=function(i){
   const lis=section.querySelectorAll('ul:first-of-type > li');
   r[3].forEach((food,j)=>{
    if(!lis[j])return;
-   const amount=(PORTION_OVERRIDES_V04[r[0]]||{})[food]||DEFAULT_PORTIONS_V04[food]||'適量';
+   const amount=(PORTION_OVERRIDES_V04[r[0]]||{})[food]||DEFAULT_PORTIONS_V04[food]||DEFAULT_PORTIONS_V06[food]||'適量';
    const span=document.createElement('span');
    span.style.color='#687062';
    span.textContent=' · '+amount;
@@ -484,11 +484,74 @@ openRecipe=function(i){
   root.appendChild(p);
  }
 };
-// V0.5 補齊所有食譜調味規則，否則不應顯示「現在能煮」
+// V0.6 補齊所有食譜調味規則，否則不應顯示「現在能煮」
 if(RECIPES.some(r=>!(r[0] in PANTRY_RULES)))throw new Error('食譜缺少必要調味規則');
 
-// V0.5 食譜類型必須完整且唯一，不可因菜名調整造成篩選漏掉料理。
-if(RECIPES.some(r=>!CATEGORY_BY_NAME_V05[r[0]])||Object.keys(CATEGORY_BY_NAME_V05).length!==RECIPES.length)console.warn('V0.5 部分食譜尚未完整分類');
+// V0.6 食譜類型必須完整且唯一，不可因菜名調整造成篩選漏掉料理。
+if(RECIPES.some(r=>!CATEGORY_BY_NAME_V05[r[0]])||Object.keys(CATEGORY_BY_NAME_V05).length!==RECIPES.length)console.warn('V0.6 部分食譜尚未完整分類');
+
+
+// V0.6 食材擴充：同類雞肉的安全匹配不等於換菜名；香菇/蘑菇、絲瓜/節瓜保持獨立。
+function hasIngredientV06(food){
+ if(picked.has(food))return true;
+ if(food==='雞肉')return picked.has('雞胸肉')||picked.has('雞腿肉');
+ return false;
+}
+function chosenChickenLabelV06(){
+ if(picked.has('雞肉'))return '雞肉';
+ if(picked.has('雞胸肉')&&picked.has('雞腿肉'))return '雞胸肉／雞腿肉';
+ return picked.has('雞胸肉')?'雞胸肉':picked.has('雞腿肉')?'雞腿肉':'雞肉';
+}
+const DEFAULT_PORTIONS_V06={'菠菜':'約 200g','蘑菇':'約 180g（約 6～8 顆）','節瓜':'約 1 條（200～250g）','雞胸肉':'約 220g','雞腿肉':'去骨約 250g'};
+const EXTRA_RECIPES_V06=[
+ ['蒜炒菠菜','🥬',12,['菠菜','蒜頭'],'食用油、鹽',['菠菜挑掉老葉，逐葉洗淨並瀝乾；蒜頭切末。','鍋中加約 2 茶匙油，以中小火將蒜末炒香約 20 秒。','加入菠菜，翻炒約 3～5 分鐘至葉片熟軟，加少量鹽調味。'],'菠菜容易出水，不需一次加入很多水。'],
+ ['菠菜炒蛋','🍳',15,['菠菜','雞蛋'],'食用油、鹽',['菠菜洗淨切段，雞蛋 2 顆打散。','先以中小火炒菠菜至軟，盛出瀝掉多餘水分。','再將蛋炒至凝固，放回菠菜拌勻調味。'],'菠菜先炒掉水分，蛋比較不會水水的。'],
+ ['菠菜豆腐湯','🥣',15,['菠菜','豆腐'],'水、鹽',['菠菜充分洗淨切段，豆腐切塊。','鍋內加約 500 ml 水煮滾，加入豆腐煮約 3 分鐘。','放入菠菜煮至熟軟，加入少量鹽，確認全部食材熱透。'],'菠菜不宜久煮，嫩葉後放可保留口感。'],
+ ['奶油蘑菇','🍄',15,['蘑菇'],'奶油、鹽；可選黑胡椒',['蘑菇清潔後切片，瀝乾表面水分。','平底鍋放約 10g 奶油，以中小火加熱至融化。','放入蘑菇翻炒約 6～8 分鐘至熟軟、略呈金黃，加鹽調味。'],'沒有奶油的話可使用食用油，改為香煎蘑菇版本。'],
+ ['蒜香蘑菇','🍄',12,['蘑菇','蒜頭'],'食用油、鹽',['蘑菇清潔後切片，蒜頭切末。','鍋中加約 2 茶匙油，小火炒香蒜末，避免焦黑。','加入蘑菇炒約 5～7 分鐘至出水收乾且熟透，加入鹽調味。'],'蘑菇和香菇是不同食材，這道料理不會直接視作香菇版本。'],
+ ['蘑菇炒蛋','🍳',15,['蘑菇','雞蛋'],'食用油、鹽',['蘑菇切片，雞蛋 2 顆打散。','鍋中加油先炒蘑菇約 5～6 分鐘至熟軟。','加入蛋液，中小火炒至完全凝固，加少量鹽。'],'先炒蘑菇收掉水分，口感較好。'],
+ ['清炒節瓜','🥒',12,['節瓜'],'食用油、鹽',['節瓜洗淨去頭尾，切成厚度約 0.5 公分的半月片。','平底鍋加油以中火加熱，放入節瓜鋪平。','翻炒約 5～7 分鐘至軟嫩熟透，少量加鹽。'],'這裡的節瓜指櫛瓜／zucchini，不是絲瓜。'],
+ ['蒜香節瓜','🥒',15,['節瓜','蒜頭'],'食用油、鹽',['節瓜洗淨切半月片，蒜頭切碎。','鍋中加油，先將節瓜兩面略煎上色。','加入蒜末繼續翻炒約 1～2 分鐘至蒜香散出、節瓜熟透，加鹽調味。'],'蒜末晚一點加入，比較不容易炒焦。'],
+ ['節瓜炒蛋','🍳',15,['節瓜','雞蛋'],'食用油、鹽',['節瓜洗淨切薄片，雞蛋打散。','平底鍋加油，先炒節瓜約 4～5 分鐘至稍軟。','倒入蛋液，用中小火炒至蛋完全凝固，加鹽調味。'],'節瓜不需去皮；切薄能縮短熟成時間。'],
+ ['香煎雞胸肉','🍗',20,['雞胸肉'],'食用油、鹽；可選黑胡椒',['雞胸肉最厚處可橫切成較薄且厚度均勻的兩片，避免內外熟度落差。','以適量油、鹽調味，中火先煎上色，再視厚度調小火加熱。','用食物溫度計確認最厚處中心達 74°C 後起鍋，靜置數分鐘再切。'],'雞胸肉厚度差異很大，不能只用固定分鐘數判斷熟度。'],
+ ['雞腿肉蔥燒','🍗',25,['雞腿肉','青蔥'],'食用油、醬油、水約 80 ml',['去骨雞腿肉切塊，青蔥切段，生熟砧板分開。','鍋中以少量油將雞腿肉煎至表面上色，加入蔥段稍炒。','加約 80 ml 水及 1～2 茶匙醬油，轉中小火燜煮至雞腿肉中心達 74°C。'],'雞腿肉帶皮與否會影響出油量；若有骨頭需延長時間。'],
+ ['蘑菇雞胸肉','🍗',25,['蘑菇','雞胸肉'],'食用油、鹽；可選黑胡椒',['雞胸肉切成厚度均勻的小塊，蘑菇切片，生熟器具分開。','先以少量油煎雞胸肉至表面上色，加入蘑菇翻炒。','轉中小火續煮至雞胸肉最厚處中心達 74°C，蘑菇熟軟後調味。'],'若雞胸肉切塊較大，需依厚度延長時間；避免只看表面顏色。']
+];
+const PANTRY_RULES_V06={
+ '蒜炒菠菜':['食用油','鹽'],'菠菜炒蛋':['食用油','鹽'],'菠菜豆腐湯':['鹽'],
+ '奶油蘑菇':['鹽'],'蒜香蘑菇':['食用油','鹽'],'蘑菇炒蛋':['食用油','鹽'],
+ '清炒節瓜':['食用油','鹽'],'蒜香節瓜':['食用油','鹽'],'節瓜炒蛋':['食用油','鹽'],
+ '香煎雞胸肉':['食用油','鹽'],'雞腿肉蔥燒':['食用油','醬油'],'蘑菇雞胸肉':['食用油','鹽']
+};
+const RECIPE_TYPES_V06={
+ '蒜炒菠菜':'side','菠菜炒蛋':'side','菠菜豆腐湯':'soup',
+ '奶油蘑菇':'side','蒜香蘑菇':'side','蘑菇炒蛋':'side',
+ '清炒節瓜':'side','蒜香節瓜':'side','節瓜炒蛋':'side',
+ '香煎雞胸肉':'main','雞腿肉蔥燒':'main','蘑菇雞胸肉':'main'
+};
+// 奶油為可選做法的材料，未確認時不把它當成「奶油蘑菇」已完全備齊。
+const butterDish=EXTRA_RECIPES_V06.find(r=>r[0]==='奶油蘑菇');
+if(butterDish){butterDish[0]='香煎蘑菇';butterDish[4]='食用油、鹽；可選奶油、黑胡椒';butterDish[5]=['蘑菇清潔後切片，瀝乾表面水分。','鍋中放約 2 茶匙食用油，以中小火加熱。','放入蘑菇炒約 6～8 分鐘至熟軟、略呈金黃，加鹽調味；有奶油可最後加少量提香。'];delete PANTRY_RULES_V06['奶油蘑菇'];PANTRY_RULES_V06['香煎蘑菇']=['食用油','鹽'];delete RECIPE_TYPES_V06['奶油蘑菇'];RECIPE_TYPES_V06['香煎蘑菇']='side'}
+if(EXTRA_RECIPES_V06.some(r=>RECIPES.some(o=>o[0]===r[0])))throw new Error('新增食譜與舊食譜重名');
+if(EXTRA_RECIPES_V06.some(r=>r[3].some(f=>!allFood.includes(f))))throw new Error('新增食材不在選單');
+if(EXTRA_RECIPES_V06.some(r=>!(r[0] in PANTRY_RULES_V06)||!(r[0] in RECIPE_TYPES_V06)))throw new Error('缺少調味或分類資料');
+RECIPES.push(...EXTRA_RECIPES_V06);
+Object.assign(PANTRY_RULES,PANTRY_RULES_V06);
+Object.assign(CATEGORY_BY_NAME_V05,RECIPE_TYPES_V06);
+for(const r of EXTRA_RECIPES_V06)CATEGORY_GROUPS_V05[RECIPE_TYPES_V06[r[0]]].push(r[0]);
+// 雞肉替代選擇提示：只替代一般雞肉料理所需肉類；不能當作雞胸專用或雞腿專用食譜。
+const openRecipeV06=openRecipe;
+openRecipe=function(i){
+ openRecipeV06(i);
+ const r=RECIPES[i];
+ if(!r||!r[3].includes('雞肉')||!hasIngredientV06('雞肉'))return;
+ const place=document.getElementById('dialogContent');
+ if(!place)return;
+ const note=document.createElement('p');
+ note.className='needed';
+ note.textContent=picked.has('雞胸肉')&&!picked.has('雞腿肉')&&!picked.has('雞肉')?'🍗 你選的是雞胸肉：偏瘦、容易煮乾；切成均勻厚度並用中心溫度 74°C 確認熟度。':picked.has('雞腿肉')&&!picked.has('雞胸肉')&&!picked.has('雞肉')?'🍗 你選的是雞腿肉：一般較有油脂，煎煮時間可能不同；中心需達 74°C。':'🍗 若使用雞胸或雞腿代替一般雞肉，應依部位及厚度調整時間，中心達 74°C。';
+ place.appendChild(note);
+};
 
 render();
 </script>
